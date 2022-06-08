@@ -48,7 +48,7 @@ const NavVert = ({ updateSel }: NavVertProps) => {
     {
       id: CLIENT_MANAGER,
       icon: "user-circle",
-      text: "Gestion de Clients",
+      text: "Gestion Clients",
       link: "/manager/client/ClientManager",
       active:
         route.pathname == "/manager/client/ClientManager" ||
@@ -59,7 +59,7 @@ const NavVert = ({ updateSel }: NavVertProps) => {
     {
       id: VENDOR_MANAGER,
       icon: "truck",
-      text: "Gestion de Fournisseurs",
+      text: "Gestion Fournisseurs",
       link: "/manager/vendor/VendorManager",
       active:
         route.pathname == "/manager/vendor/VendorManager" ||
@@ -78,7 +78,7 @@ const NavVert = ({ updateSel }: NavVertProps) => {
     {
       id: PURCHASE_MANAGER,
       icon: "shopping-bag",
-      text: "gestion d'achats",
+      text: "Gestion Achats",
       link: "/manager/purchase/Reception",
       active:
         route.pathname == "/manager/purchase/Reception" ||
@@ -90,7 +90,7 @@ const NavVert = ({ updateSel }: NavVertProps) => {
     {
       id: COLISAGE_MANAGER,
       icon: "shopping-bag",
-      text: "gestion de colisage",
+      text: "Gestion Colisage",
       link: "/manager/colisage/GestionColisage",
       active: route.pathname == "/manager/colisage/GestionColisage",
       sous: [],
@@ -116,7 +116,7 @@ const NavVert = ({ updateSel }: NavVertProps) => {
       icon: "table",
       text: "Gestion des Tables",
       link: "/reference/unitMeasure",
-      active: route.pathname == "/reference/[reference]",
+      active: route.pathname == "/reference/[reference]"|| route.pathname == "/reference2/Role",
 
       /*  active: route.pathname == "/reference/unitMeasure" || route.pathname == "/reference/article" || route.pathname == "/reference/rawMaterial" || route.pathname == "/reference/bureauDouane" || route.pathname == "/reference/regimeDouanier" || route.pathname == "/reference/payementMode" || route.pathname == "/reference/incoterm" || route.pathname == "/reference/declarant" || route.pathname == "/reference/Transporteur" || route.pathname == "/reference/Document" || route.pathname == "/reference/Devise" || route.pathname == "/reference/Pays" || route.pathname == "/reference/Ville" || route.pathname == "/reference/Type" || route.pathname == "/reference2/Role", */
       sous: [

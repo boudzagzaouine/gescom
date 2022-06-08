@@ -50,12 +50,12 @@ const ListArticleCommandes = ({
         className="tab-list float-left w-full mt-8"
         thead={
           <tr>
-            <Table.th>code</Table.th>
-            <Table.th>commande</Table.th>
-            <Table.th>design</Table.th>
-            <Table.th>quantité</Table.th>
-            <Table.th>portion</Table.th>
-            <Table.th>p.u</Table.th>
+            <Table.th>Code</Table.th>
+            <Table.th>Commande</Table.th>
+            <Table.th>Désignation</Table.th>
+            <Table.th>Quantité</Table.th>
+            <Table.th>Portion</Table.th>
+            <Table.th>P.U</Table.th>
             <Table.th></Table.th>
           </tr>
         }

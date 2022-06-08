@@ -1,190 +1,101 @@
-import {
-  ArchiveIcon,
-  ClipboardListIcon,
-  PencilAltIcon,
-  ReplyIcon,
-  TrashIcon,
-} from "@heroicons/react/solid";
-import { usePaginationMatierePremiereQuery } from "config/rtk";
-import {
-  OpenFournisseurProp,
-  openFournisseurs,
-  OpenMatierePremiereProp,
-  openMatierePremieresPagination,
-} from "config/rtk/rtkFournisseur";
-import { useRef, useState } from "react";
-import { REQUEST_EDIT, REQUEST_SAVE } from "tools/consts";
-import { getFournisseur } from "tools/Methodes";
-import { getMp0, mp0, f0, MatierePremiere, Fournisseur } from "tools/types";
-import { Button } from "widgets";
-import Bcyan from "widgets/Bcyan";
-import Bcyanxl from "widgets/Bcyanxl";
-import Icon from "widgets/Icon";
-import Mitems from "widgets/Mitems";
-import Mitems0 from "widgets/Mitems0";
-import Pagin from "widgets/Pagin";
-import Section from "widgets/Section";
-import Table from "widgets/Table";
-import { MenuItems } from "widgets/TypeWidgets";
-import FormMatierePremiere from "./FormMatierePremiere";
+import { useState } from "react";
+import { Fournisseur, MatierePremiere, matierepremiere0 } from "tools/types";
+import List from "widgets/List";
 
-const ListAllMatierePremiere = () => {
-  const [page, setPage] = useState(0);
-  const loadPage = (p: number) => {
-    setPage(p);
-    refetch();
-  };
-  const matierePremieresOpen: OpenMatierePremiereProp =
-    openMatierePremieresPagination(page);
-  const matierePremieres: MatierePremiere[] = matierePremieresOpen.data.content;
-  const refetch = matierePremieresOpen.refetch;
-  const fournisseursOpen: OpenFournisseurProp = openFournisseurs();
-  const fournisseurs: Fournisseur[] = fournisseursOpen.data.content;
-  const refCom = useRef(null);
-  const del = useRef(null);
-  const archive = useRef(null);
-  const restore = useRef(null);
-
-  const menu = (
-    matiere: MatierePremiere,
-    fournisseur: Fournisseur
-  ): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <ClipboardListIcon
-            className="mr-3 h-8 w-8 text-green-300 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Détail",
-        action: () => {
-          //@ts-ignore
-          refCom.current(matiere, true, fournisseur);
-        },
-      },
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          //@ts-ignore
-          refCom.current(matiere, false, fournisseur);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(matiere.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(matiere.id);
-        },
-      },
-      // {
-      //   icon: (
-      //     <ReplyIcon
-      //       className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-      //       aria-hidden="true"
-      //     />
-      //   ),
-      //   text: "Restorer",
-      //   action: () => {
-      //     //@ts-ignore
-      //     restore.current(matiere.id);
-      //   },
-      // },
-    ];
+const Temp = () => {
+	return <h1>en cours ...</h1>;
+};
+var refetch=()=>{};
+type ListAllMatierePremiereProp={
+	fournisseur:Fournisseur
+}
+const ListAllMatierePremiere=({fournisseur}:ListAllMatierePremiereProp)=>{
+  const[matierepremiere,setMatierepremiere]=useState(matierepremiere0);
+  const init=(m:MatierePremiere, r:()=> void)=>{
+    setMatierepremiere(m);
+    refetch=r;
   };
   return (
-    <Section>
-      <div className="float-left w-full">
-        <Bcyanxl
-          className="float-left mt-2"
-          onClick={() => {
-            //@ts-ignore
-            refCom.current(mp0);
-          }}
-        >
-          Nouvelle Matière première
-        </Bcyanxl>
-        <div className="float-right">
-          <input
-            type="text"
-            className="py-3 border outline-[#ddd] border-[#ddd] float-right border-l-0 rounded-r-lg w-96"
-            placeholder="Recherche"
-          />
-          <Button className="bg-white float-right border border-[#ddd] border-r-0 p-3 rounded-l-lg">
-            <Icon i="search" cl="" />
-          </Button>
-        </div>
-      </div>
-      <FormMatierePremiere
-        Matierep={mp0}
-        disabled={false}
-        ref={refCom}
-        refetch={refetch}
-        fournisseurs={fournisseurs}
-        fournisseur={f0}
-      />
-      <Table
-        className="tab-list float-left w-full mt-2"
-        thead={
-          <tr>
-            <Table.th>Code</Table.th>
-            <Table.th>Désignation</Table.th>
-            <Table.th>Prix</Table.th>
-            <Table.th>Fournisseur</Table.th>
-            <Table.th>Famille</Table.th>
-            <Table.th>Origine</Table.th>
-            <Table.th></Table.th>
-          </tr>
-        }
-      >
-        {matierePremieres?.map((matiere) => (
-          <tr key={matiere.id}>
-            <Table.td>{matiere.id}</Table.td>
-            <Table.td>{matiere.design}</Table.td>
-            <Table.td>{matiere.prix}</Table.td>
-            <Table.td>
-              {getFournisseur(matiere.idFournisseur, fournisseurs).design}
-            </Table.td>
-            <Table.td>{matiere.familleMatierePremiere}</Table.td>
-            <Table.td>{matiere.origine}</Table.td>
-            <Table.td>
-              <Mitems0
-                menu={menu(
-                  matiere,
-                  getFournisseur(matiere.idFournisseur, fournisseurs)
-                )}
-              />
-            </Table.td>
-          </tr>
-        ))}
-      </Table>
-      <Pagin load={loadPage} max={300} visible={true} />
-    </Section>
-  );
+		<>
+			<List
+				displayedIncheck={{
+					msg: "",
+					css: "",
+					tab: [],
+				}}
+				avatar={false}
+				rectoVerso={false}
+				title='Matière Première'
+				mal={false}
+				body={[
+					{
+						label: "Fournisseur",
+						attr: "idFournisseur",
+						type: "select",
+						required: false,
+						css: "w-full",
+						path: "fournisseurs",
+						displayed: true,
+						join: fournisseur?.design,
+					},
+					{
+						label: "Code",
+						attr: "id",
+						type: "attr",
+						required: true,
+						css: "w-full",
+						path: ".",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Désignation",
+						attr: "design",
+						type: "attr",
+						required: true,
+						css: "w-full",
+						path: ".",
+						displayed: true,
+						join: ".",
+					},
+          			{
+						label: "Famille Matière Première",
+						attr: "familleMatierePremiere",
+						type: "select",
+						required: true,
+						css: "w-full",
+						path: "rawMaterials",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Prix",
+						attr: "prix",
+						type: "attr",
+						required: true,
+						css: "w-full",
+						path: ".",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Origine",
+						attr: "origine",
+						type: "select",
+						required: false,
+						css: "w-full",
+						path: "pays",
+						displayed: true,
+						join: ".",
+					},
+				]}
+				emptyObject={matierepremiere0}
+				path='matieresPremiere'
+				detailObjects={[]}
+				init={init}
+			/>
+		</>
+	);
 };
+
 export default ListAllMatierePremiere;

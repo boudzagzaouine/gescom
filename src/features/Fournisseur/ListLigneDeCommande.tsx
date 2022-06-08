@@ -94,7 +94,7 @@ const ListLigneDeCommande = ({
               open("new");
             }}
           >
-            <Table.td className={style_add_line}>ajouter une ligne</Table.td>
+            <Table.td className={style_add_line}>Ajouter une ligne</Table.td>
             <Table.td className={style_add_line}></Table.td>
             <Table.td className={style_add_line}></Table.td>
             <Table.td className={style_add_line}></Table.td>
