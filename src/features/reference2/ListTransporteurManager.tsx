@@ -1,18 +1,15 @@
-import { TrashIcon } from "@heroicons/react/outline";
-import { ArchiveIcon, PencilAltIcon } from "@heroicons/react/solid";
-import ArchiveTransporteur from "components/reference2/ArchiveTransporteur";
-import DeleteTransporteur from "components/reference2/DeleteTransporteur";
-import RestoreTransporteur from "components/reference2/RestoreTransporteur";
 import {
   OpenTransporteurProp,
   openTransporteurs,
 } from "config/rtk/rtkTransporteur";
 import React, { useRef, useState } from "react";
+import { ARCHIVE, DEL, RESTORE } from "tools/consts";
 import { t0, Transporteur, TransporteurJson } from "tools/types";
+import Action from "widgets/Action";
 import Bcyanxl from "widgets/Bcyanxl";
 import { Button } from "widgets/Button";
 import Icon from "widgets/Icon";
-import Mitems from "widgets/Mitems";
+import MitemsRef from "widgets/MitemsRef";
 import Pagin from "widgets/Pagin";
 import Section from "widgets/Section";
 import Table from "widgets/Table";
@@ -36,56 +33,33 @@ function ListTransporteurManager() {
   const archive = useRef(null);
   const restore = useRef(null);
 
-  const menu = (transporteur: Transporteur): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          //@ts-ignore
-          refCom.current(transporteur, false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(transporteur.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(transporteur.id);
-        },
-      },
-    ];
-  };
-
   return (
     <>
       <Section>
-        <DeleteTransporteur refetch={refetch} id={""} ref={del} />
-        <ArchiveTransporteur id={""} ref={archive} />
-        <RestoreTransporteur id={""} ref={restore} />
+      <Action
+            id=""
+            path="transporteurs"
+            design=""
+            type="Transporteur"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="transporteurs"
+            design=""
+            type="Transporteur"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="transporteurs"
+            design=""
+            type="Transporteur"
+            ref={restore}
+            action={RESTORE}
+          />
         <h1>Transporteurs</h1>
         <div className="float-left w-full">
           <Bcyanxl
@@ -132,7 +106,24 @@ function ListTransporteurManager() {
               </Table.td>
 
               <Table.td>
-                <Mitems menu={menu(Transporteur)} />
+              <MitemsRef
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(Transporteur.id, Transporteur.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(Transporteur.id, Transporteur.design);
+                        }}
+                        obj={Transporteur}
+                        update={() => {
+                                   //@ts-ignore
+                             refCom.current(Transporteur, false);
+                        }} />
               </Table.td>
             </tr>
           ))}

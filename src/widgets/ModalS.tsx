@@ -7,7 +7,7 @@ type ModalProps = {
 	children: ReactNode;
 	title: string;
 	show: boolean;
-	modal: boolean;
+	format:number;
 	close: () => void;
 };
 const calculClass = ({ className }: any) => {
@@ -16,7 +16,8 @@ const calculClass = ({ className }: any) => {
 		className,
 	);
 };
-const ModalS = ({ children, title, show, modal, close }: ModalProps) => {
+const ModalS = ({ children, title, show, format, close }: ModalProps) => {
+	const modal=true
 	const [showModal, setShowModal] = React.useState(show);
 	const open = () => {
 		//setShowModal(true);

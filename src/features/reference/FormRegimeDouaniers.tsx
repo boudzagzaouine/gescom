@@ -1,15 +1,10 @@
-import {
-  ArchiveIcon,
-  PencilAltIcon,
-  TrashIcon,
-} from "@heroicons/react/outline";
 import classNames from "classnames";
 import {
   OpenRegimeDouanierProp,
   openRegimeDouaniers,
 } from "config/rtk/rtkRegimeDouanier";
 import React, { forwardRef, Ref, useEffect, useRef, useState } from "react";
-import { REQUEST_EDIT, REQUEST_SAVE } from "tools/consts";
+import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from "tools/consts";
 import {
   PayementMode,
   payementMode0,
@@ -18,10 +13,11 @@ import {
   RegimeDouanierJson,
 } from "tools/types";
 import { Field, Form } from "widgets";
+import Action from "widgets/Action";
 import Bcancel from "widgets/Bcancel";
 import Bsave from "widgets/Bsave";
 import BsavEndNew from "widgets/BsavEndNew";
-import Mitems from "widgets/Mitems";
+import MitemsRef from "widgets/MitemsRef";
 import ModalS from "widgets/ModalS";
 import Pagin from "widgets/Pagin";
 import Required from "widgets/Required";
@@ -90,66 +86,40 @@ const FormRegimeDouanier = (
     showFormulaire(regimeDouanier);
   };
 
-  const void_ = () => {};
-
-  //const [updateRegimeDouanier] = useEditRegimeDouanierMutation();
-
-  const menu = (regimeDouanier: RegimeDouanier): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          open(regimeDouanier);
-          setRequest(REQUEST_EDIT);
-          setDisabled(false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(regimeDouanier.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(regimeDouanier.id);
-        },
-      },
-    ];
+  const FormAsUpdate = (regimeDouanier: RegimeDouanier) => {
+    setDisabled(false);
+    open(regimeDouanier);
   };
+  const void_ = () => {};
 
   return (
     <>
       {!form && (
         <section className="bg-white float-left w-full h-full mp-8 shadow-lg">
-          <DeleteRegimeDouanier
-            id={""}
+          <Action
+            id=""
+            path="regimeDouaniers"
+            design=""
+            type="Régime Douanier"
             ref={del}
-            refetch={refetchRegimeDouanier}
+            action={DEL}
           />
-          <ArchiveRegimeDouanier id={""} ref={archive} />
-          <RestoreRegimeDouanier id={""} ref={restore} />
+          <Action
+            id=""
+            path="regimeDouaniers"
+            design=""
+            type="Régime Douanier"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="regimeDouaniers"
+            design=""
+            type="Régime Douanier"
+            ref={restore}
+            action={RESTORE}
+          />
           <h1>Régimes Douaniers</h1>
           <div className="float-left w-full">
             <button
@@ -209,7 +179,23 @@ const FormRegimeDouanier = (
                     <Table.td>{regimeDouanier.code}</Table.td>
                     <Table.td>{regimeDouanier.design}</Table.td>
                     <Table.td className="cursor-pointer">
-                      <Mitems menu={menu(regimeDouanier)} />
+                    <MitemsRef  
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(regimeDouanier.id, regimeDouanier.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(regimeDouanier.id, regimeDouanier.design);
+                        }}
+                        obj={regimeDouanier}
+                        update={() => {
+                          FormAsUpdate(regimeDouanier);
+                        }} />
                     </Table.td>
                   </tr>
                 );

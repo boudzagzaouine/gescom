@@ -1,18 +1,15 @@
-import { TrashIcon } from "@heroicons/react/outline";
-import { ArchiveIcon, PencilAltIcon } from "@heroicons/react/solid";
-import ArchivePays from "components/reference2/ArchivePays";
-import DeletePays from "components/reference2/DeletePays";
-import RestorePays from "components/reference2/RestorePays";
 import { openPays, OpenPaysProp } from "config/rtk/rtkPays";
 import React, { useRef, useState } from "react";
+import { ARCHIVE, DEL, RESTORE } from "tools/consts";
 import { Pays, pays0, PaysJson } from "tools/types";
+import Action from "widgets/Action";
 import Bcyan from "widgets/Bcyan";
 import { Button } from "widgets/Button";
 import Icon from "widgets/Icon";
+import MitemsRef from "widgets/MitemsRef";
 import Pagin from "widgets/Pagin";
 import Section from "widgets/Section";
 import Table from "widgets/Table";
-import { MenuItems } from "widgets/TypeWidgets";
 import FormPaysManager from "./FormPaysManager";
 function ListPaysManager() {
   const [page, setPage] = useState(0);
@@ -32,56 +29,33 @@ function ListPaysManager() {
   const archive = useRef(null);
   const restore = useRef(null);
 
-  const menu = (pays: Pays): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          //@ts-ignore
-          refCom.current(pays, false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(pays.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(pays.id);
-        },
-      },
-    ];
-  };
-
   return (
     <>
       <Section>
-        <DeletePays refetch={refetch} id={""} ref={del} />
-        <ArchivePays id={""} ref={archive} />
-        <RestorePays id={""} ref={restore} />
+      <Action
+            id=""
+            path="pays"
+            design=""
+            type="Pays"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="pays"
+            design=""
+            type="Pays"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="pays"
+            design=""
+            type="Pays"
+            ref={restore}
+            action={RESTORE}
+          />
         <h1>Pays</h1>
         <div className="float-left w-full">
           <Bcyan
@@ -126,7 +100,24 @@ function ListPaysManager() {
               <Table.td>{Pays.design}</Table.td>
 
               <Table.td>
-                <Mitems menu={menu(Pays)} />
+              <MitemsRef  
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(Pays.id, Pays.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(Pays.id, Pays.design);
+                        }}
+                        obj={Pays}
+                        update={() => {
+                                   //@ts-ignore
+                             refCom.current(Pays, false);
+                        }} />
               </Table.td>
             </tr>
           ))}

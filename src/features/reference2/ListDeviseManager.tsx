@@ -1,9 +1,4 @@
-import { TrashIcon } from "@heroicons/react/outline";
-import { ArchiveIcon, PencilAltIcon } from "@heroicons/react/solid";
-import ArchiveDevise from "components/reference2/ArchiveDevise";
-import DeleteDevise from "components/reference2/DeleteDevise";
 import { OpenDeviseProp } from "config/rtk/rtkDevise";
-import RestoreDevise from "components/reference2/RestoreDevise";
 import { openDevises } from "config/rtk/rtkDevise";
 import React, { useRef, useState } from "react";
 import { Devise, DeviseJson, v0 } from "tools/types";
@@ -13,9 +8,10 @@ import Icon from "widgets/Icon";
 import Pagin from "widgets/Pagin";
 import Section from "widgets/Section";
 import Table from "widgets/Table";
-import { MenuItems } from "widgets/TypeWidgets";
 import FormDeviseManager from "./FormDevise";
-import Mitems from "widgets/Mitems";
+import MitemsRef from "widgets/MitemsRef";
+import { ARCHIVE, DEL, RESTORE } from "tools/consts";
+import Action from "widgets/Action";
 
 function ListDeviseManager() {
   const [page, setPage] = useState(0);
@@ -35,58 +31,35 @@ function ListDeviseManager() {
   const del = useRef(null);
   const archive = useRef(null);
   const restore = useRef(null);
-
-  const menu = (devise: Devise): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          //@ts-ignore
-          refCom.current(devise, false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(Devise.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(Devise.id);
-        },
-      },
-    ];
-  };
   const imputFocus = useRef();
 
   return (
     <>
       <Section>
-        <DeleteDevise refetch={refetch} id={""} ref={del} />
-        <ArchiveDevise id={""} ref={archive} />
-        <RestoreDevise id={""} ref={restore} />
+      <Action
+            id=""
+            path="devises"
+            design=""
+            type="Devise"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="devises"
+            design=""
+            type="Devise"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="devises"
+            design=""
+            type="Devise"
+            ref={restore}
+            action={RESTORE}
+          />
         <h1>Devise</h1>
         <div className="float-left w-full">
           <Bcyan
@@ -134,7 +107,24 @@ function ListDeviseManager() {
               <Table.td>{Devise.code_iso} </Table.td>
               <Table.td>{Devise.symbole} </Table.td>
               <Table.td>
-                <Mitems key={Devise.id} menu={menu(Devise)} />
+              <MitemsRef  
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(Devise.id, Devise.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(Devise.id, Devise.design);
+                        }}
+                        obj={Devise}
+                        update={() => {
+                                   //@ts-ignore
+                             refCom.current(Devise, false);
+                        }} />
               </Table.td>
             </tr>
           ))}

@@ -64,7 +64,7 @@ const MitemsRef = ({ archive, del, obj, update, ...props }: menuProp) => {
         archive(obj.id);
       },
     },
-    {
+    /*{
       icon: (
         <ReplyIcon
           className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
@@ -75,7 +75,7 @@ const MitemsRef = ({ archive, del, obj, update, ...props }: menuProp) => {
       action: () => {
         //restore(obj.id);
       },
-    },
+    },*/
   ];
   return (
     <>

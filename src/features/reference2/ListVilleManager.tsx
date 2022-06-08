@@ -1,18 +1,15 @@
-import { TrashIcon } from "@heroicons/react/outline";
-import { ArchiveIcon, PencilAltIcon } from "@heroicons/react/solid";
-import ArchiveVille from "components/reference2/ArchiveVille";
-import DeleteVille from "components/reference2/DeleteVille";
-import RestoreVille from "components/reference2/RestoreVille";
 import { OpenVilleProp, openVilles } from "config/rtk/rtkVille";
 import React, { useRef, useState } from "react";
+import { ARCHIVE, DEL, RESTORE } from "tools/consts";
 import { i0, Ville, VilleJson } from "tools/types";
+import Action from "widgets/Action";
 import Bcyan from "widgets/Bcyan";
 import { Button } from "widgets/Button";
 import Icon from "widgets/Icon";
+import MitemsRef from "widgets/MitemsRef";
 import Pagin from "widgets/Pagin";
 import Section from "widgets/Section";
 import Table from "widgets/Table";
-import { MenuItems } from "widgets/TypeWidgets";
 import FormVilleManager from "./FormVilleManager";
 function ListVilleManager() {
   const [page, setPage] = useState(0);
@@ -32,56 +29,33 @@ function ListVilleManager() {
   const archive = useRef(null);
   const restore = useRef(null);
 
-  const menu = (ville: Ville): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          //@ts-ignore
-          refCom.current(ville, false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(ville.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(ville.id);
-        },
-      },
-    ];
-  };
-
   return (
     <>
       <Section>
-        <DeleteVille refetch={refetch} id={""} ref={del} />
-        <ArchiveVille id={""} ref={archive} />
-        <RestoreVille id={""} ref={restore} />
+      <Action
+            id=""
+            path="villes"
+            design=""
+            type="Ville"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="villes"
+            design=""
+            type="Ville"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="villes"
+            design=""
+            type="Ville"
+            ref={restore}
+            action={RESTORE}
+          />
         <h1>Villes</h1>
         <div className="float-left w-full">
           <Bcyan
@@ -131,7 +105,24 @@ function ListVilleManager() {
               </Table.td>
 
               <Table.td>
-                <Mitems key={Ville.id} menu={menu(Ville)} />
+              <MitemsRef  
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(Ville.id, Ville.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(Ville.id, Ville.design);
+                        }}
+                        obj={Ville}
+                        update={() => {
+                                   //@ts-ignore
+                             refCom.current(Ville, false);
+                        }} />
               </Table.td>
             </tr>
           ))}

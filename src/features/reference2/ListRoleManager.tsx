@@ -121,7 +121,7 @@ function ListRoleManager() {
                   }}
                   edit={() => {
                     //@ts-ignore
-                    refCom.current(role, true);
+                    refCom.current(Role, true);
                   }}
                   obj={Role}
                   update={() => {
