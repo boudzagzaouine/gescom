@@ -1,0 +1,234 @@
+{
+    "tab": [{
+            "id": "77bdbf7a-5530-44bd-b633-aca8fcc41c65",
+            "archived": false,
+            "design": "maroc"
+        },
+        {
+            "id": "87feb54b-db68-485e-8060-7f9f1e419ebc",
+            "archived": false,
+            "design": "saoudi"
+        },
+        {
+            "id": "18258240-6f38-45b7-8205-7c86525834ee",
+            "archived": false,
+            "design": "chine"
+        },
+        {
+            "id": "0aa44692-6ad2-4562-8880-0ba5b4d44a7f",
+            "archived": false,
+            "design": "indonisie"
+        },
+        {
+            "id": "a747c46a-6340-4b35-b61f-dd212e3145da",
+            "archived": false,
+            "design": "malisie"
+        },
+        {
+            "id": "4bf064c3-7898-4697-9e39-47eeb135a0de",
+            "archived": false,
+            "design": "sangapure"
+        },
+        {
+            "id": "6714fb97-f6f0-48b8-86ab-f845589beb49",
+            "archived": false,
+            "design": "mexique"
+        },
+        {
+            "id": "da9b9f47-5fa3-4f61-b07d-4ca9fcc45d95",
+            "archived": false,
+            "design": "italie"
+        },
+        {
+            "id": "16679ed0-151a-471e-8867-aacf2972ffc3",
+            "archived": false,
+            "design": "almagne"
+        },
+        {
+            "id": "0e7ba713-4cd7-49ce-8518-886d9af8d3f9",
+            "archived": false,
+            "design": "espagne"
+        },
+        {
+            "id": "25688625-cd8c-4439-a648-1b780682256a",
+            "archived": false,
+            "design": "france"
+        },
+        {
+            "id": "659059e9-ec75-4342-9696-30eb56f427e1",
+            "archived": false,
+            "design": "belgique"
+        }
+    ],
+    "data": {
+        "content": [{
+                "id": "77bdbf7a-5530-44bd-b633-aca8fcc41c65",
+                "archived": false,
+                "design": "maroc"
+            },
+            {
+                "id": "87feb54b-db68-485e-8060-7f9f1e419ebc",
+                "archived": false,
+                "design": "saoudi"
+            },
+            {
+                "id": "18258240-6f38-45b7-8205-7c86525834ee",
+                "archived": false,
+                "design": "chine"
+            },
+            {
+                "id": "0aa44692-6ad2-4562-8880-0ba5b4d44a7f",
+                "archived": false,
+                "design": "indonisie"
+            },
+            {
+                "id": "a747c46a-6340-4b35-b61f-dd212e3145da",
+                "archived": false,
+                "design": "malisie"
+            },
+            {
+                "id": "4bf064c3-7898-4697-9e39-47eeb135a0de",
+                "archived": false,
+                "design": "sangapure"
+            },
+            {
+                "id": "6714fb97-f6f0-48b8-86ab-f845589beb49",
+                "archived": false,
+                "design": "mexique"
+            },
+            {
+                "id": "da9b9f47-5fa3-4f61-b07d-4ca9fcc45d95",
+                "archived": false,
+                "design": "italie"
+            },
+            {
+                "id": "16679ed0-151a-471e-8867-aacf2972ffc3",
+                "archived": false,
+                "design": "almagne"
+            },
+            {
+                "id": "0e7ba713-4cd7-49ce-8518-886d9af8d3f9",
+                "archived": false,
+                "design": "espagne"
+            },
+            {
+                "id": "25688625-cd8c-4439-a648-1b780682256a",
+                "archived": false,
+                "design": "france"
+            },
+            {
+                "id": "659059e9-ec75-4342-9696-30eb56f427e1",
+                "archived": false,
+                "design": "belgique"
+            }
+        ],
+        "pageable": {
+            "sort": { "empty": true, "sorted": false, "unsorted": true },
+            "offset": 0,
+            "pageSize": 20,
+            "pageNumber": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "last": true,
+        "totalPages": 1,
+        "totalElements": 12,
+        "size": 20,
+        "number": 0,
+        "sort": { "empty": true, "sorted": false, "unsorted": true },
+        "first": true,
+        "numberOfElements": 12,
+        "empty": false
+    },
+    "isSuccess": true,
+    "isFetching": false,
+    "isError": false,
+    "isLoading": false,
+    "isUninitialized": false,
+    "status": "fulfilled",
+    "currentData": {
+        "content": [{
+                "id": "77bdbf7a-5530-44bd-b633-aca8fcc41c65",
+                "archived": false,
+                "design": "maroc"
+            },
+            {
+                "id": "87feb54b-db68-485e-8060-7f9f1e419ebc",
+                "archived": false,
+                "design": "saoudi"
+            },
+            {
+                "id": "18258240-6f38-45b7-8205-7c86525834ee",
+                "archived": false,
+                "design": "chine"
+            },
+            {
+                "id": "0aa44692-6ad2-4562-8880-0ba5b4d44a7f",
+                "archived": false,
+                "design": "indonisie"
+            },
+            {
+                "id": "a747c46a-6340-4b35-b61f-dd212e3145da",
+                "archived": false,
+                "design": "malisie"
+            },
+            {
+                "id": "4bf064c3-7898-4697-9e39-47eeb135a0de",
+                "archived": false,
+                "design": "sangapure"
+            },
+            {
+                "id": "6714fb97-f6f0-48b8-86ab-f845589beb49",
+                "archived": false,
+                "design": "mexique"
+            },
+            {
+                "id": "da9b9f47-5fa3-4f61-b07d-4ca9fcc45d95",
+                "archived": false,
+                "design": "italie"
+            },
+            {
+                "id": "16679ed0-151a-471e-8867-aacf2972ffc3",
+                "archived": false,
+                "design": "almagne"
+            },
+            {
+                "id": "0e7ba713-4cd7-49ce-8518-886d9af8d3f9",
+                "archived": false,
+                "design": "espagne"
+            },
+            {
+                "id": "25688625-cd8c-4439-a648-1b780682256a",
+                "archived": false,
+                "design": "france"
+            },
+            {
+                "id": "659059e9-ec75-4342-9696-30eb56f427e1",
+                "archived": false,
+                "design": "belgique"
+            }
+        ],
+        "pageable": {
+            "sort": { "empty": true, "sorted": false, "unsorted": true },
+            "offset": 0,
+            "pageSize": 20,
+            "pageNumber": 0,
+            "paged": true,
+            "unpaged": false
+        },
+        "last": true,
+        "totalPages": 1,
+        "totalElements": 12,
+        "size": 20,
+        "number": 0,
+        "sort": { "empty": true, "sorted": false, "unsorted": true },
+        "first": true,
+        "numberOfElements": 12,
+        "empty": false
+    },
+    "endpointName": "fetch",
+    "fulfilledTimeStamp": 1654608144553,
+    "originalArgs": "pays",
+    "requestId": "SiPwlcGF-SoWk1KbU8MAj",
+    "startedTimeStamp": 1654608144174
+}

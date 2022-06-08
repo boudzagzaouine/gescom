@@ -38,9 +38,6 @@ const List = <E extends IdsObject, J extends IdsObjectJson>({
 	const objJson: J = open.data;
 	const list: E[] = open.tab;
 	const refetch: () => void = open.refetch;
-	const refetchTest: () => void = () => {
-		alert(" salamo alaykom " + object.design);
-	};
 	const save = open.save;
 	const edit = open.edit;
 	const [object, setObject] = useState({ ...emptyObject, path: path });

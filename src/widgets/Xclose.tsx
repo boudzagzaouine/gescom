@@ -1,29 +1,29 @@
-import { XIcon } from "@heroicons/react/solid";
-import React, { ElementType } from "react";
-import cn from "classnames";
+import { XIcon } from '@heroicons/react/solid';
+import cn from 'classnames';
+import React, { ElementType } from 'react';
+
 type XcloseProp = {
-  close: () => void;
+	close: () => void;
 };
 const calculClass = (className: string) => {
-  return cn(className);
+	return cn(className);
 };
 //x-close absolute top-1 right-1 cursor-pointer p-2.5 bg-transparent
 const Xclose = ({ close }: XcloseProp) => {
-  return (
-    <button
-      className={cn(
-        "absolute top-1 right-1 cursor-pointer p-2.5 bg-transparent"
-      )}
-      onClick={() => {
-        close();
-      }}
-    >
-      <XIcon
-        className="h-8 w-8 text-cyan-700 group-hover:text-gray-500"
-        aria-hidden="true"
-      />
-    </button>
-  );
+	return (
+		<button
+			className={cn(
+				"absolute top-1 right-1 cursor-pointer p-2.5 bg-transparent",
+			)}
+			onClick={() => {
+				close();
+			}}>
+			<XIcon
+				className='h-8 w-8 text-[#C1BFBF] group-hover:text-gray-500'
+				aria-hidden='true'
+			/>
+		</button>
+	);
 };
 /*
 PROD:

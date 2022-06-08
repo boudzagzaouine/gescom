@@ -78,7 +78,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Unité de Mesure'
+					title='Unités de Mesure'
 					mal={false}
 					body={[
 						{
@@ -125,8 +125,8 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Famille Article'
-					mal={true}
+					title='Familles Article'
+					mal={false}
 					body={[
 						{
 							label: "Désignation",
@@ -172,7 +172,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Famille Matière Première'
+					title='Familles Matière Première'
 					mal={false}
 					body={[
 						{
@@ -239,7 +239,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Bureau Douanier'
+					title='Bureaux Douaniers'
 					mal={true}
 					body={[
 						{
@@ -276,7 +276,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Régime Douanier'
+					title='Régimes Douaniers'
 					mal={true}
 					body={[
 						{
@@ -350,7 +350,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='incoterm'
+					title='incoterms'
 					mal={true}
 					body={[
 						{
@@ -387,7 +387,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Déclarant'
+					title='Déclarants'
 					mal={true}
 					body={[
 						{
@@ -408,7 +408,7 @@ const Reference = ({ type }: ReferenceProps) => {
 							css: "w-1/2 float-left",
 							path: "villes",
 							displayed: true,
-							join: "Ville",
+							join: ".",
 						},
 					]}
 					emptyObject={declarant0}
@@ -424,7 +424,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Transporteur'
+					title='Transporteurs'
 					mal={true}
 					body={[
 						{
@@ -451,7 +451,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Document'
+					title='Documents'
 					mal={true}
 					body={[
 						{
@@ -478,7 +478,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Devise'
+					title='Devises'
 					mal={false}
 					body={[
 						{
@@ -552,7 +552,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Ville'
+					title='Villes'
 					mal={false}
 					body={[
 						{
@@ -566,14 +566,14 @@ const Reference = ({ type }: ReferenceProps) => {
 							join: ".",
 						},
 						{
-							label: "Ville",
+							label: "Pays",
 							attr: "pays",
 							type: "select",
 							required: true,
 							css: "w-1/2 float-left",
 							path: "pays",
 							displayed: true,
-							join: "pays",
+							join: ".",
 						},
 					]}
 					emptyObject={i0}
@@ -589,7 +589,7 @@ const Reference = ({ type }: ReferenceProps) => {
 					detailObjects={[]}
 					rectoVerso={false}
 					displayedIncheck={{ msg: "", css: "", tab: [] }}
-					title='Type'
+					title='Types'
 					mal={true}
 					body={[
 						{

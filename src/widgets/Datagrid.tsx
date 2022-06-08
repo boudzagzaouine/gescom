@@ -42,7 +42,7 @@ const Datagrid = <E extends IdsObject, J extends IdsObjectJson>({
 				//@ts-ignore
 				let obj = getLine(id, tab);
 				return obj?.design;
-			} else return "ddd";
+			} else return "";
 		} catch (error) {
 			return "" + error;
 		}
@@ -62,7 +62,6 @@ const Datagrid = <E extends IdsObject, J extends IdsObjectJson>({
 				return DateFormat(l[b.attr]);
 				break;
 			case "select":
-				console.log("id = " + l.id + " path... = " + b.path);
 				//@ts-ignore
 				return getDesign(l[b.attr], b.path);
 				break;
@@ -103,6 +102,7 @@ const Datagrid = <E extends IdsObject, J extends IdsObjectJson>({
 						ref={restore}
 						action={RESTORE}
 					/>
+
 					<Table
 						className='tab-list float-left w-full mt-2'
 						thead={
