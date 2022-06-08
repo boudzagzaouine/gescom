@@ -47,7 +47,7 @@ const menuVert = [
     {
       id: CLIENT_MANAGER,
       icon: "user-circle",
-      text: "Gestion de Clients",
+      text: "Gestion Clients",
       link: "/manager/client/ClientManager",
       active:
         route.pathname == "/manager/client/ClientManager" ||
@@ -58,7 +58,7 @@ const menuVert = [
     {
       id: VENDOR_MANAGER,
       icon: "truck",
-      text: "Gestion de Fournisseurs",
+      text: "Gestion Fournisseurs",
       link: "/manager/vendor/VendorManager",
       active:
         route.pathname == "/manager/vendor/VendorManager" ||
@@ -77,7 +77,7 @@ const menuVert = [
     {
       id: PURCHASE_MANAGER,
       icon: "shopping-bag",
-      text: "Gestion d'achats",
+      text: "Gestion Achats",
       link: "/manager/purchase/Reception",
       active:
         route.pathname == "/manager/purchase/Reception" ||

@@ -2,12 +2,14 @@ import { ArchiveIcon, PencilAltIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 import { OpenIncotermProp, openIncoterms } from "config/rtk/rtkIncoterm";
 import React, { forwardRef, Ref, useEffect, useRef, useState } from "react";
-import { REQUEST_EDIT, REQUEST_SAVE } from "tools/consts";
+import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from "tools/consts";
 import { Incoterm, incoterm0, IncotermJson } from "tools/types";
 import { Field, Form } from "widgets";
+import Action from "widgets/Action";
 import Bcancel from "widgets/Bcancel";
 import Bsave from "widgets/Bsave";
 import BsavEndNew from "widgets/BsavEndNew";
+import MitemsRef from "widgets/MitemsRef";
 import ModalS from "widgets/ModalS";
 import Pagin from "widgets/Pagin";
 import Required from "widgets/Required";
@@ -69,63 +71,41 @@ const FormIncoterm = ({ incoterm }: FormIncotermProps, ref: Ref<void>) => {
     setDisabled(true);
     showFormulaire(incoterm);
   };
+  const FormAsUpdate = (incoterm: Incoterm) => {
+    setDisabled(false);
+    open(incoterm);
+  };
 
   const void_ = () => {};
-
-  //const [updateIncoterm] = useEditIncotermMutation();
-
-  const menu = (incoterm: Incoterm): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          open(incoterm);
-          setRequest(REQUEST_EDIT);
-          setDisabled(false);
-        },
-      },
-      /* {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(incoterm.id);
-        },
-      }, */
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(incoterm.id);
-        },
-      },
-    ];
-  };
 
   return (
     <>
       {!form && (
         <section className="bg-white float-left w-full h-full mp-8 shadow-lg">
-          <DeleteIncoterm id={""} ref={del} refetch={refetchIncoterm} />
-          <ArchiveIncoterm id={""} ref={archive} />
-          <RestoreIncoterm id={""} ref={restore} />
+          <Action
+            id=""
+            path="incoterms"
+            design=""
+            type="Incoterm"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="incoterms"
+            design=""
+            type="Incoterm"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="incoterms"
+            design=""
+            type="Incoterm"
+            ref={restore}
+            action={RESTORE}
+          />
           <h1>Incoterms</h1>
           <div className="float-left w-full">
             <button
@@ -185,7 +165,24 @@ const FormIncoterm = ({ incoterm }: FormIncotermProps, ref: Ref<void>) => {
                     <Table.td>{incoterm.code}</Table.td>
                     <Table.td>{incoterm.design}</Table.td>
                     <Table.td className="cursor-pointer">
-                      <Mitems0 menu={menu(incoterm)} />
+                    <MitemsRef
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(incoterm.id, incoterm.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(incoterm.id, incoterm.design);
+                        }}
+                        obj={incoterm}
+                        update={() => {
+                          FormAsUpdate(incoterm);
+                        }}
+                      />
                     </Table.td>
                   </tr>
                 );

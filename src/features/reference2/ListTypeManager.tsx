@@ -1,18 +1,15 @@
-import { TrashIcon } from "@heroicons/react/outline";
-import { ArchiveIcon, PencilAltIcon } from "@heroicons/react/solid";
-import ArchiveType from "components/reference2/ArchiveType";
-import DeleteType from "components/reference2/DeleteType";
-import RestoreType from "components/reference2/RestoreType";
 import { OpenTypeProp, openTypes } from "config/rtk/rtkType";
 import React, { useRef, useState } from "react";
+import { ARCHIVE, DEL, RESTORE } from "tools/consts";
 import { Type, type0, TypeJson } from "tools/types";
+import Action from "widgets/Action";
 import Bcyan from "widgets/Bcyan";
 import { Button } from "widgets/Button";
 import Icon from "widgets/Icon";
+import MitemsRef from "widgets/MitemsRef";
 import Pagin from "widgets/Pagin";
 import Section from "widgets/Section";
 import Table from "widgets/Table";
-import { MenuItems } from "widgets/TypeWidgets";
 import FormTypeManager from "./FormTypeManager";
 function ListTypeManager() {
   const [page, setPage] = useState(0);
@@ -30,56 +27,34 @@ function ListTypeManager() {
   const del = useRef(null);
   const archive = useRef(null);
   const restore = useRef(null);
-  const menu = (type: Type): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          //@ts-ignore
-          refCom.current(type, false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(type.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(type.id);
-        },
-      },
-    ];
-  };
-
+  
   return (
     <>
       <Section>
-        <DeleteType refetch={refetch} id={""} ref={del} />
-        <ArchiveType id={""} ref={archive} />
-        <RestoreType id={""} ref={restore} />
+      <Action
+            id=""
+            path="types"
+            design=""
+            type="Type"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="types"
+            design=""
+            type="Type"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="types"
+            design=""
+            type="Type"
+            ref={restore}
+            action={RESTORE}
+          />
         <h1>Types En-Têtes</h1>
         <div className="float-left w-full">
           <Bcyan
@@ -129,7 +104,24 @@ function ListTypeManager() {
               </Table.td>
 
               <Table.td>
-                <Mitems menu={menu(Type)} />
+              <MitemsRef  
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(Type.id, Type.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(Type.id, Type.design);
+                        }}
+                        obj={Type}
+                        update={() => {
+                                   //@ts-ignore
+                             refCom.current(Type, false);
+                        }} />
               </Table.td>
             </tr>
           ))}

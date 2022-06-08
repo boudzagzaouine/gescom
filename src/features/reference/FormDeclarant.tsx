@@ -7,13 +7,15 @@ import classNames from "classnames";
 import { OpenDeclarantProp, openDeclarants } from "config/rtk/rtkDeclarant";
 import { openVilleD } from "config/rtk/rtkVille";
 import React, { forwardRef, Ref, useEffect, useRef, useState } from "react";
-import { REQUEST_EDIT, REQUEST_SAVE } from "tools/consts";
+import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from "tools/consts";
 import { Declarant, declarant0, DeclarantJson, Ville } from "tools/types";
 import { Field, Form } from "widgets";
+import Action from "widgets/Action";
 import Bcancel from "widgets/Bcancel";
 import Bsave from "widgets/Bsave";
 import BsavEndNew from "widgets/BsavEndNew";
 import Mitems from "widgets/Mitems";
+import MitemsRef from "widgets/MitemsRef";
 import ModalS from "widgets/ModalS";
 import Pagin from "widgets/Pagin";
 import Required from "widgets/Required";
@@ -78,63 +80,40 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
     setDisabled(true);
     showFormulaire(declarant);
   };
-
-  const void_ = () => {};
-
-  //const [updateDeclarant] = useEditDeclarantMutation();
-
-  const menu = (declarant: Declarant): MenuItems[] => {
-    return [
-      {
-        icon: (
-          <PencilAltIcon
-            className="mr-3 h-8 w-8 text-green-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Modifier",
-        action: () => {
-          open(declarant);
-          setRequest(REQUEST_EDIT);
-          setDisabled(false);
-        },
-      },
-      {
-        icon: (
-          <TrashIcon
-            className="mr-3 h-8 w-8 text-rose-900 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Supprimer",
-        action: () => {
-          //@ts-ignore
-          del.current(declarant.id);
-        },
-      },
-      {
-        icon: (
-          <ArchiveIcon
-            className="mr-3 h-8 w-8 text-gray-800 group-hover:text-gray-500"
-            aria-hidden="true"
-          />
-        ),
-        text: "Archiver",
-        action: () => {
-          //@ts-ignore
-          archive.current(declarant.id);
-        },
-      },
-    ];
+  const FormAsUpdate = (declarant: Declarant) => {
+    setDisabled(false);
+    open(declarant);
   };
-
+  const void_ = () => {};
   return (
     <>
       {!form && (
         <section className="bg-white float-left w-full h-full mp-8 shadow-lg">
-          <DeleteDeclarant id={""} ref={del} refetch={refetchDeclarant} />
-          <ArchiveDeclarant id={""} ref={archive} />
-          <RestoreDeclarant id={""} ref={restore} />
+           <Action
+            id=""
+            path="declarants"
+            design=""
+            type="Déclarant"
+            ref={del}
+            action={DEL}
+          />
+          <Action
+            id=""
+            path="declarants"
+            design=""
+            type="Déclarant"
+            ref={archive}
+            action={ARCHIVE}
+          />
+          <Action
+            id=""
+            path="declarants"
+            design=""
+            type="Déclarant"
+            ref={restore}
+            action={RESTORE}
+          />
+
           <h1>Déclarants</h1>
           <div className="float-left w-full">
             <button
@@ -194,7 +173,24 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
                     <Table.td>{declarant.design}</Table.td>
                     <Table.td>{declarant.ville}</Table.td>
                     <Table.td className="cursor-pointer">
-                      <Mitems menu={menu(declarant)} />
+                    <MitemsRef
+                        archive={() => {
+                          //@ts-ignore
+                          archive.current(declarant.id, declarant.design);
+                        }}
+                        /*   restore={() => {
+                            //@ts-ignore
+                            restore.current(client.id,client.design);
+                          }} */
+                        del={() => {
+                          //@ts-ignore
+                          del.current(declarant.id, declarant.design);
+                        }}
+                        obj={declarant}
+                        update={() => {
+                          FormAsUpdate(declarant);
+                        }}
+                      />
                     </Table.td>
                   </tr>
                 );
