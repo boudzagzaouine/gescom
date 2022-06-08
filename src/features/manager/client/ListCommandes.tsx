@@ -1,111 +1,94 @@
-import { BriefcaseIcon } from '@heroicons/react/solid';
-import React, { useState } from 'react';
-import { style_icon, style_span } from 'tools/constStyle';
-import { Client, Commande, commande0 } from 'tools/types';
-import List from 'widgets/List';
-import { MenuNavTabs } from 'widgets/TypeWidgets';
-import ListArticleCommandes from './ListArticleCommandes';
+import { OpenCommandeByClientProp, openCommandesByClient } from 'config/rtk/RtkCommande';
+import React, { useRef, useState } from 'react';
+import { DateFormat } from 'tools/Methodes';
+import { Client, cm0, Commande } from 'tools/types';
+import Bcyan from 'widgets/Bcyan';
+import Bedit from 'widgets/Bedit';
+import Table from 'widgets/Table';
 
-type CommandesProp = {
+import FormCommande from './FormCommande';
+
+type ListCommandesProp = {
 	client: Client;
 	refetchParent: () => void;
 };
-var refetch = () => {};
-const ListCommandes = ({ client, refetchParent }: CommandesProp) => {
-	const [commande, setCommande] = useState(commande0);
-	const init = (c: Commande, r: () => void) => {
-		setCommande(c);
-		refetch = r;
+const ListCommandes2 = ({ client, refetchParent }: ListCommandesProp) => {
+	const commandesOpen: OpenCommandeByClientProp = openCommandesByClient(
+		client.id,
+	);
+	const commandes: Commande[] = commandesOpen.data;
+	const save = commandesOpen.save;
+	const edit = commandesOpen.edit;
+	const refetch = commandesOpen.refetch;
+	const cm1: Commande = cm0;
+	cm1.idClient = client.id;
+	const refCom = useRef(null);
+	const refetchAll = () => {
+		refetch();
+		refetchParent();
 	};
-	const commandes: MenuNavTabs[] = [
-		{
-		   id: 1,
-		  name: (
-		  <>
-			<BriefcaseIcon className={style_icon} aria-hidden="true" />
-			<span className={style_span}>Articles de la commande</span>
-		  </>
-		  ),
-		  featured: (
-			<ListArticleCommandes
-				idClient={client?.id}
-				idCommande={commande?.id}
-				refetchParent={refetch}
-			/>
-		  ),
-		 },
-	  ];
 	return (
 		<>
-			<List
-				displayedIncheck={{
-					msg: "",
-					css: "",
-					tab: [],
-				}}
-				avatar={false}
-				rectoVerso={false}
-				title='Commande'
-				mal={false}
-				body={[
-					{
-						label: "Client",
-						attr: "idClient",
-						type: "attr",
-						required: true,
-						css: "w-1/2 float-left",
-						path: "clients",
-						displayed: true,
-						join: client?.design,
-					},
-					{
-						label: "Adresse de livraison",
-						attr: "adrLiv",
-						type: "select",
-						required: true,
-						css: "w-1/2 float-left",
-						path: "adressLivs",
-						displayed: false,
-						join: ".",
-					},
-          			{
-						label: "N° BC",
-						attr: "id",
-						type: "attr",
-						required: true,
-						css: "w-1/2 float-left",
-						path: ".",
-						displayed: true,
-						join: ".",
-					},
-          			{
-						label: "Saison",
-						attr: "season",
-						type: "attr",
-						required: true,
-						css: "w-1/2 float-left",
-						path: ".",
-						displayed: true,
-						join: ".",
-					},
-         			{
-						label: "Date Commande",
-						attr: "date33",
-						type: "date",
-						required: true,
-						css: "w-1/2 float-left",
-						path: ".",
-						displayed: true,
-						join: ".",
-					},
-				]}
-				emptyObject={commande0}
-				path='commandes'
-				detailObjects={commandes}
-				init={init}
+			<Bcyan
+				className='float-left mt-2'
+				onClick={() => {
+					//@ts-ignore
+					refCom.current(cm0, client);
+				}}>
+				Nouvelle commande
+			</Bcyan>
+			<FormCommande
+				add={save}
+				edit={edit}
+				command={cm1}
+				ref={refCom}
+				client={client}
+				clients={[]}
+				refetchList={refetchAll}
+				disabled={false}
 			/>
+			<Table
+				className='tab-list float-left w-full mt-2'
+				thead={
+					<tr>
+						<Table.th>N° BC</Table.th>
+						<Table.th>Client</Table.th>
+						<Table.th>Date</Table.th>
+						<Table.th>Saison</Table.th>
+						<Table.th>Montant</Table.th>
+						<Table.th></Table.th>
+					</tr>
+				}>
+				{commandes?.map((commande) => (
+					<tr key={commande.id}>
+						<Table.td>{commande.id}</Table.td>
+						<Table.td>{client.design}</Table.td>
+						<Table.td>{DateFormat(commande.date)}</Table.td>
+						<Table.td>{commande.season}</Table.td>
+						<Table.td>{commande.amount}</Table.td>
+						<Table.td>
+							{/*  <Bcyan
+        className="float-left mt-2"
+        onClick={() => {
+          //@ts-ignore
+          refCom.current(getCm(client,commande));
+        }}
+      >
+       ...
+      </Bcyan> */}
+							<Bedit
+								className='float-left mt-2'
+								onClick={() => {
+									//@ts-ignore
+									refCom.current(commande, client);
+								}}
+							/>
+						</Table.td>
+					</tr>
+				))}
+			</Table>
 		</>
 	);
 };
 
-export default ListCommandes;
+export default ListCommandes2;

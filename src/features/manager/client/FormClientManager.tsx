@@ -16,7 +16,7 @@ import ShowCheckedsField from 'widgets/ShowCheckedsField';
 import Title from 'widgets/Title';
 import Xclose from 'widgets/Xclose';
 
-import ListCommandeClient from './ListCommandeClient11111';
+import ListCommandeClient from './ListCommandeClient';
 
 //14:28
 type FormClientManagerProp = {

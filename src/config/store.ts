@@ -5,8 +5,30 @@ import counterReducer from 'features/counter/counterSlice';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { crudColis } from './../components/colisage/rtk/rtk_colisage';
 import customOfflineConfig from './offline';
+import { crudAdressLiv } from './rtk/RtkAdressLiv';
+import { crudArticle } from './rtk/rtkArticle';
+import { crudArticleClient } from './rtk/RtkArticleClient';
+import { crudArticleCommande } from './rtk/RtkArticleCommande';
+import { crudBureauDouane } from './rtk/rtkBureauDouane';
+import { crudClient } from './rtk/RtkClient';
+import { crudCommande } from './rtk/RtkCommande';
+import { crudDeclarant } from './rtk/rtkDeclarant';
+import { crudDevise } from './rtk/rtkDevise';
+import { crudDocument } from './rtk/rtkDocument';
+import { crudFournisseur } from './rtk/rtkFournisseur';
 import { crudGeneric } from './rtk/rtkGen';
+import { crudIncoterm } from './rtk/rtkIncoterm';
+import { crudPayementMode } from './rtk/rtkPayementMode';
+import { crudPays } from './rtk/rtkPays';
+import { crudRawMaterial } from './rtk/rtkRawMaterial';
+import { crudRegimeDouanier } from './rtk/rtkRegimeDouanier';
+import { crudRole } from './rtk/rtkRole';
+import { crudTransporteur } from './rtk/rtkTransporteur';
+import { crudType } from './rtk/rtkType';
+import { crudUnitMeasure } from './rtk/rtkUnitMeasure';
+import { crudVille } from './rtk/rtkVille';
 
 const {
 	middleware: offlineMiddleware,
@@ -27,9 +49,7 @@ const persistConfig = {
 export function makeStore() {
 	const rootReducer = combineReducers({
 		counter: counterReducer,
-		[crudGeneric.reducerPath]: crudGeneric.reducer,
-	});
-	/*	[crudFournisseur.reducerPath]: crudFournisseur.reducer,
+		[crudFournisseur.reducerPath]: crudFournisseur.reducer,
 		[crudVille.reducerPath]: crudVille.reducer,
 		[crudType.reducerPath]: crudType.reducer,
 		[crudTransporteur.reducerPath]: crudTransporteur.reducer,
@@ -50,8 +70,11 @@ export function makeStore() {
 		[crudArticleCommande.reducerPath]: crudArticleCommande.reducer,
 		[crudArticleClient.reducerPath]: crudArticleClient.reducer,
 		[crudPayementMode.reducerPath]: crudPayementMode.reducer,
-    [crudColis.reducerPath]: crudColis.reducer,
-    */
+		[crudColis.reducerPath]: crudColis.reducer,
+		[crudGeneric.reducerPath]: crudGeneric.reducer,
+	});
+	/*
+	 */
 	const persistedReducer = persistReducer(
 		persistConfig,
 		offlineEnhanceReducer(rootReducer),
@@ -64,32 +87,34 @@ export function makeStore() {
 				serializableCheck: {
 					ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 				},
-			}).concat([crudGeneric.middleware, offlineMiddleware]),
+			})
+				.concat([crudVille.middleware, offlineMiddleware])
+				.concat([crudType.middleware, offlineMiddleware])
+				.concat([crudFournisseur.middleware, offlineMiddleware])
+				.concat([crudTransporteur.middleware, offlineMiddleware])
+				.concat([crudRole.middleware, offlineMiddleware])
+				.concat([crudPays.middleware, offlineMiddleware])
+				.concat([crudDocument.middleware, offlineMiddleware])
+				.concat([crudDevise.middleware, offlineMiddleware])
+				.concat([crudCommande.middleware, offlineMiddleware])
+				.concat([crudBureauDouane.middleware, offlineMiddleware])
+				.concat([crudArticle.middleware, offlineMiddleware])
+				.concat([crudRegimeDouanier.middleware, offlineMiddleware])
+				.concat([crudRawMaterial.middleware, offlineMiddleware])
+				.concat([crudDeclarant.middleware, offlineMiddleware])
+				.concat([crudIncoterm.middleware, offlineMiddleware])
+				.concat([crudUnitMeasure.middleware, offlineMiddleware])
+				.concat([crudClient.middleware, offlineMiddleware])
+				.concat([crudAdressLiv.middleware, offlineMiddleware])
+				.concat([crudArticleCommande.middleware, offlineMiddleware])
+				.concat([crudArticleClient.middleware, offlineMiddleware])
+				.concat([crudPayementMode.middleware, offlineMiddleware])
+				.concat([crudColis.middleware, offlineMiddleware])
+				.concat([crudGeneric.middleware, offlineMiddleware]),
 	});
 	return store;
 }
-/*  .concat([crudVille.middleware, offlineMiddleware])
-        .concat([crudType.middleware, offlineMiddleware])
-        .concat([crudFournisseur.middleware, offlineMiddleware])
-        .concat([crudTransporteur.middleware, offlineMiddleware])
-        .concat([crudRole.middleware, offlineMiddleware])
-        .concat([crudPays.middleware, offlineMiddleware])
-        .concat([crudDocument.middleware, offlineMiddleware])
-        .concat([crudDevise.middleware, offlineMiddleware])
-        .concat([crudCommande.middleware, offlineMiddleware])
-        .concat([crudBureauDouane.middleware, offlineMiddleware])
-        .concat([crudArticle.middleware, offlineMiddleware])
-        .concat([crudRegimeDouanier.middleware, offlineMiddleware])
-        .concat([crudRawMaterial.middleware, offlineMiddleware])
-        .concat([crudDeclarant.middleware, offlineMiddleware])
-        .concat([crudIncoterm.middleware, offlineMiddleware])
-        .concat([crudUnitMeasure.middleware, offlineMiddleware])
-        .concat([crudClient.middleware, offlineMiddleware])
-        .concat([crudAdressLiv.middleware, offlineMiddleware])
-        .concat([crudArticleCommande.middleware, offlineMiddleware])
-        .concat([crudArticleClient.middleware, offlineMiddleware])
-        .concat([crudPayementMode.middleware, offlineMiddleware])
-        .concat([crudColis.middleware, offlineMiddleware])*/
+
 const store = makeStore();
 export const persistor = persistStore(store);
 
