@@ -3,7 +3,7 @@ import { OpenVilleProp, openVilles } from 'config/rtk/rtkVille';
 import React, { useRef, useState } from 'react';
 import { ARCHIVE, DEL, RESTORE } from 'tools/consts';
 import { getLine } from 'tools/Methodes';
-import { i0, Pays, Ville, VilleJson } from 'tools/types';
+import { Pays, Ville, ville0, VilleJson } from 'tools/types';
 import Action from 'widgets/Action';
 import Bcyan from 'widgets/Bcyan';
 import { Button } from 'widgets/Button';
@@ -66,7 +66,7 @@ function ListVilleManager() {
 						className='float-left'
 						onClick={() => {
 							//@ts-ignore
-							refCom.current(i0, false);
+							refCom.current(ville0, false);
 						}}>
 						Nouvelle Ville
 					</Bcyan>
@@ -74,7 +74,7 @@ function ListVilleManager() {
 						refetch={refetch}
 						save={save}
 						edit={edit}
-						Ville={i0}
+						ville={ville0}
 						disable={false}
 						ref={refCom}
 					/>

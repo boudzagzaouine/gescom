@@ -49,23 +49,23 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 			id: CLIENT_MANAGER,
 			icon: "user-circle",
 			text: "Gestion Clients",
-			link: "/manager/client/ClientManager",
+			link: "/manager/client-beta/ClientManager",
 			active:
-				route.pathname == "/manager/client/ClientManager" ||
-				route.pathname == "/manager/client/CommandeClientManager" ||
-				route.pathname == "/manager/client/SoldeCommandeClientManager",
+				route.pathname == "/manager/client-beta/ClientManager" ||
+				route.pathname == "/manager/client-beta/CommandeClientManager" ||
+				route.pathname == "/manager/client-beta/SoldeCommandeClientManager",
 			sous: [],
 		},
 		{
 			id: VENDOR_MANAGER,
 			icon: "truck",
 			text: "Gestion Fournisseurs",
-			link: "/manager/vendor/VendorManager",
+			link: "/manager/vendor-beta/VendorManager",
 			active:
-				route.pathname == "/manager/vendor/VendorManager" ||
-				route.pathname == "/manager/vendor/CommandeVendor" ||
-				route.pathname == "/manager/vendor/RawMaterielManager" ||
-				route.pathname == "/manager/vendor/CommandeVendorManager",
+				route.pathname == "/manager/vendor-beta/VendorManager" ||
+				route.pathname == "/manager/vendor-beta/CommandeVendor" ||
+				route.pathname == "/manager/vendor-beta/RawMaterielManager" ||
+				route.pathname == "/manager/vendor-beta/CommandeVendorManager",
 			sous: [],
 		},
 		/* {id:USER_MANAGER,
@@ -79,20 +79,20 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 			id: PURCHASE_MANAGER,
 			icon: "shopping-bag",
 			text: "Gestion Achats",
-			link: "/manager/purchase/Reception",
+			link: "/manager/purchase-beta/Reception",
 			active:
-				route.pathname == "/manager/purchase/Reception" ||
-				route.pathname == "/manager/purchase/RightOfReturn" ||
-				route.pathname == "/manager/purchase/StockStatus" ||
-				route.pathname == "/manager/purchase/InputOutputHistory",
+				route.pathname == "/manager/purchase-beta/Reception" ||
+				route.pathname == "/manager/purchase-beta/RightOfReturn" ||
+				route.pathname == "/manager/purchase-beta/StockStatus" ||
+				route.pathname == "/manager/purchase-beta/InputOutputHistory",
 			sous: [],
 		},
 		{
 			id: COLISAGE_MANAGER,
 			icon: "shopping-bag",
 			text: "Gestion Colisage",
-			link: "/manager/colisage/GestionColisage",
-			active: route.pathname == "/manager/colisage/GestionColisage",
+			link: "/manager/colisage-beta/GestionColisage",
+			active: route.pathname == "/manager/colisage-beta/GestionColisage",
 			sous: [],
 		},
 		/* {
@@ -226,7 +226,7 @@ const NavVert = ({ updateSel }: NavVertProps) => {
 		<>
 			<ul className='nav-horiz bg-[#2B5173] h-full'>
 				<h2 className='bg-[#000] bg-opacity-10 text-[#fff] w-full float-left py-2.5'>
-					GESTION COMMERCIAL{" "}
+					GESTION COMMERCIAL BETA{" "}
 				</h2>
 				{menuVert.map((item) => (
 					<li

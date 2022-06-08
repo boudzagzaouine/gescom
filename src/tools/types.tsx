@@ -90,7 +90,7 @@ export const adressLiv0: AdressLiv = {
 	design: "",
 	path: "",
 };
-export const adr0=adressLiv0;
+export const adr0 = adressLiv0;
 export interface ArticleCommandeJson {
 	content: ArticleCommande[];
 }
@@ -111,7 +111,7 @@ export const articleCommande0: ArticleCommande = {
 	idCommande: "",
 };
 
-export const arc0= articleCommande0;
+export const arc0 = articleCommande0;
 export interface ArticleJson {
 	content: Article[];
 }
@@ -381,12 +381,13 @@ export const p0: Pays = {
 	design: "",
 	path: "",
 };
-export const i0: Ville = {
+export const ville0: Ville = {
 	id: "",
 	design: "",
 	pays: "",
 	path: "",
 };
+export const io = ville0;
 export const y0: Document = {
 	id: "",
 	design: "",
@@ -438,7 +439,7 @@ export const fournisseur0: Fournisseur = {
 	matiere: [],
 	path: "",
 };
-export const f0=fournisseur0;
+export const f0 = fournisseur0;
 //************************************************************ */
 //************************************************************ */
 //*******************CommandeFournsieeur********************** */
@@ -456,7 +457,7 @@ export const commandeFournisseur0: CommandeFournisseur = {
 	montant: "",
 	idFournisseur: "",
 };
-export const cf0=commandeFournisseur0;
+export const cf0 = commandeFournisseur0;
 export const getCf0 = (f: Fournisseur): CommandeFournisseur => {
 	return {
 		id: "",
@@ -497,7 +498,7 @@ export const matierepremiere0: MatierePremiere = {
 	fournisseur: f0,
 	idFournisseur: "",
 };
-export const mp0=matierepremiere0;
+export const mp0 = matierepremiere0;
 export const getMp0 = (f: Fournisseur): MatierePremiere => {
 	return {
 		id: "",
@@ -533,7 +534,7 @@ export const lignedecommande0: LigneDeCommande = {
 	idCommandeFournisseur: "",
 	idMatierePremiere: "",
 };
-export const lc0=lignedecommande0;
+export const lc0 = lignedecommande0;
 export const getlc0 = (
 	c: CommandeFournisseur,
 	m: MatierePremiere,
@@ -579,7 +580,7 @@ export const users0: Users = {
 	phone: "",
 	role: [],
 };
-export const u0=users0;
+export const u0 = users0;
 export interface AccessUser {
 	manageGroupMembership: boolean;
 	view: boolean;
