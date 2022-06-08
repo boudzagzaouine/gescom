@@ -11,7 +11,7 @@ import Icon from "widgets/Icon";
 import Pagin from "widgets/Pagin";
 import Section from "widgets/Section";
 import Table from "widgets/Table";
-import FormCommande from "./FormCommandes";
+import FormCommande from "./FormCommandes111";
 
 const ListCommandFournisseurAGenerer = () => {
   const {

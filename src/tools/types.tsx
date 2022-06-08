@@ -81,7 +81,7 @@ export interface AdressLiv extends IdsObject {
 	city: string;
 	idClient: string;
 }
-export const adr0: AdressLiv = {
+export const adressLiv0: AdressLiv = {
 	id: "",
 	adress: "",
 	country: "",
@@ -90,6 +90,7 @@ export const adr0: AdressLiv = {
 	design: "",
 	path: "",
 };
+export const adr0=adressLiv0;
 export interface ArticleCommandeJson {
 	content: ArticleCommande[];
 }
@@ -99,7 +100,7 @@ export interface ArticleCommande extends IdsObject {
 	pu: number;
 	idCommande: string;
 }
-export const arc0: ArticleCommande = {
+export const articleCommande0: ArticleCommande = {
 	id: "",
 	design: "",
 	//@ts-ignore
@@ -109,6 +110,8 @@ export const arc0: ArticleCommande = {
 	pu: "",
 	idCommande: "",
 };
+
+export const arc0= articleCommande0;
 export interface ArticleJson {
 	content: Article[];
 }
@@ -417,7 +420,7 @@ export interface Fournisseur extends IdsObject {
 	matiere: MatierePremiere[];
 }
 
-export const f0: Fournisseur = {
+export const fournisseur0: Fournisseur = {
 	id: "",
 	design: "",
 	contact: "",
@@ -435,6 +438,7 @@ export const f0: Fournisseur = {
 	matiere: [],
 	path: "",
 };
+export const f0=fournisseur0;
 //************************************************************ */
 //************************************************************ */
 //*******************CommandeFournsieeur********************** */
@@ -444,7 +448,7 @@ export interface CommandeFournisseur extends IdsObject {
 	montant: number;
 	idFournisseur: string;
 }
-export const cf0: CommandeFournisseur = {
+export const commandeFournisseur0: CommandeFournisseur = {
 	id: "",
 	dateLivraison: new Date(),
 	dateCommande: new Date(),
@@ -452,6 +456,7 @@ export const cf0: CommandeFournisseur = {
 	montant: "",
 	idFournisseur: "",
 };
+export const cf0=commandeFournisseur0;
 export const getCf0 = (f: Fournisseur): CommandeFournisseur => {
 	return {
 		id: "",
@@ -482,7 +487,7 @@ export interface MatierePremiere extends IdsObject {
 	fournisseur: Fournisseur;
 	idFournisseur: string;
 }
-export const mp0: MatierePremiere = {
+export const matierepremiere0: MatierePremiere = {
 	id: "",
 	design: "",
 	familleMatierePremiere: "",
@@ -492,6 +497,7 @@ export const mp0: MatierePremiere = {
 	fournisseur: f0,
 	idFournisseur: "",
 };
+export const mp0=matierepremiere0;
 export const getMp0 = (f: Fournisseur): MatierePremiere => {
 	return {
 		id: "",
@@ -515,7 +521,7 @@ export interface LigneDeCommande extends IdsObject {
 	idCommandeFournisseur: string;
 	idMatierePremiere: string;
 }
-export const lc0: LigneDeCommande = {
+export const lignedecommande0: LigneDeCommande = {
 	id: "",
 	design: "",
 	//@ts-ignore
@@ -527,6 +533,7 @@ export const lc0: LigneDeCommande = {
 	idCommandeFournisseur: "",
 	idMatierePremiere: "",
 };
+export const lc0=lignedecommande0;
 export const getlc0 = (
 	c: CommandeFournisseur,
 	m: MatierePremiere,
@@ -558,7 +565,7 @@ export interface Users {
 	phone: string;
 	role: string[];
 }
-export const u0: Users = {
+export const users0: Users = {
 	id: -1,
 	nom: "",
 	prenom: "",
@@ -572,6 +579,7 @@ export const u0: Users = {
 	phone: "",
 	role: [],
 };
+export const u0=users0;
 export interface AccessUser {
 	manageGroupMembership: boolean;
 	view: boolean;

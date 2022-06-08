@@ -1,218 +1,174 @@
-import { OpenFournisseurProp, openPaginationFournisseurs } from 'config/rtk/rtkFournisseur';
-import React from 'react';
-import { useRef } from 'react';
-import { useState } from 'react';
-import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from 'tools/consts';
-import { f0, Fournisseur } from 'tools/types';
-import { Button } from 'widgets';
-import Action from 'widgets/Action';
-import Bcyan from 'widgets/Bcyan';
-import Icon from 'widgets/Icon';
-import Mitems from 'widgets/Mitems';
-import Pagin from 'widgets/Pagin';
-import Section from 'widgets/Section';
+import { BriefcaseIcon, ClipboardListIcon } from "@heroicons/react/solid";
+import { useState } from "react";
+import { style_icon, style_span } from "tools/constStyle";
+import { Fournisseur, fournisseur0 } from "tools/types";
+import List from "widgets/List";
+import { MenuNavTabs } from "widgets/TypeWidgets";
+import ListCommandes from "./ListCommandes";
+import ListMatierePremiere from "./ListMatierePremiere";
 
-import FormFournisseurManager from './FormFournisseurManager';
-
-const ListFournisseurManager = () => {
-	const search = (key: string, obj: Fournisseur[]): Fournisseur[] => {
-		const fournisseurSearch: Fournisseur[] = obj.filter((o: Fournisseur) => {
-			return (
-				o.id.match(key) != null ||
-				o.design.match(key) != null ||
-				o.contact.match(key) != null ||
-				o.tel.match(key) != null ||
-				o.email.match(key) != null ||
-				o.adresse.match(key) != null ||
-				o.modeDeReglements.match(key) != null ||
-				o.incoterm.match(key) != null ||
-				o.devise.match(key) != null ||
-				o.nomBanque.match(key) != null ||
-				o.ribBanque.match(key) != null ||
-				o.swift.match(key) != null ||
-				o.image.match(key) != null
-			);
-		});
-		return fournisseurSearch;
+const Temp = () => {
+	return <h1>en cours ...</h1>;
+};
+var refetch =()=>{};
+const ListFournisseurManager =()=>{
+	const [fournisseur,setFournisseur]=useState(fournisseur0);
+	const init=(f:Fournisseur, r:()=>void)=>{
+		setFournisseur(f);
+		refetch = r;
 	};
-	const [form, setForm] = useState(false);
-	const [fournisseur0, setFournisseur0] = useState(f0);
-	const [request0, setRequest0] = useState(REQUEST_SAVE);
-	const [page, setPage] = useState(0);
-	const fournOpen: OpenFournisseurProp = openPaginationFournisseurs(page);
-	const fournisseurs: Fournisseur[] = fournOpen.data.content;
-	const refetch = fournOpen.refetch;
-	const save = fournOpen.save;
-	const [disabled, setDisabled] = useState(true);
-	const del = useRef(null);
-	const archive = useRef(null);
-	const restore = useRef(null);
-	const loadPage = (p: number) => {
-		setPage(p);
-		refetch();
-	};
-	const showFormulaire = (fournisseur: Fournisseur) => {
-		setFournisseur0(fournisseur);
-		setForm(true);
-		setRequest0(REQUEST_EDIT);
-	};
-	const FormAsAdd = () => {
-		setDisabled(false);
-		setFournisseur0(f0);
-		setForm(true);
-		setRequest0(REQUEST_SAVE);
-	};
-	const FormAsEdit = (fournisseur: Fournisseur) => {
-		setDisabled(true);
-		showFormulaire(fournisseur);
-	};
-	const FormAsUpdate = (fournisseur: Fournisseur) => {
-		setDisabled(false);
-		showFormulaire(fournisseur);
-	};
+	const ligneDeCommande: MenuNavTabs[]=[
+		{
+			id: 1,
+			name: (
+			  <>
+				<BriefcaseIcon className={style_icon} aria-hidden="true" />
+				<span className={style_span}>Commandes Fournisseur</span>
+			  </>
+			),
+			featured: <ListCommandes fournisseur={fournisseur} />,
+		  },
+		  {
+			id: 2,
+			name: (
+			  <>
+				<ClipboardListIcon className={style_icon} aria-hidden="true" />
+				<span className={style_span}>Matières Premières</span>
+			  </>
+			),
+			featured: <ListMatierePremiere fournisseur={fournisseur} />,
+		  },
+	];
 	return (
 		<>
-			{form && (
-				<FormFournisseurManager
-					request={request0}
-					fournisseur={fournisseur0}
-					closed={() => {
-						setForm(false);
-						setRequest0(REQUEST_SAVE);
-						refetch();
-					}}
-					disable={disabled}
-				/>
-			)}
-			{!form && (
-				<Section>
-					<Action
-						id=''
-						path='fournisseurs'
-						design=''
-						type='le fournisseur'
-						ref={del}
-						action={DEL}
-					/>
-					<Action
-						id=''
-						path='fournisseurs'
-						design=''
-						type='le fournisseur'
-						ref={archive}
-						action={ARCHIVE}
-					/>
-					<Action
-						id=''
-						path='fournisseurs'
-						design=''
-						type='le fournisseur'
-						ref={restore}
-						action={RESTORE}
-					/>
-					<div className='float-left w-full'>
-						<Bcyan
-							className='float-left'
-							onClick={() => {
-								FormAsAdd();
-							}}>
-							Nouveau Fournisseur
-						</Bcyan>
-						<div className='float-right'>
-							<input
-								type='text'
-								className='py-3 border outline-[#ddd] border-[#ddd] float-right border-l-0 rounded-r-lg w-96'
-								placeholder='Recherche'
-							/>
-							<Button className='bg-white float-right border border-[#ddd] border-r-0 p-3 rounded-l-lg'>
-								<Icon i='search' cl='' />
-							</Button>
-						</div>
-					</div>
-					<table className='tab-list float-left w-full mt-8'>
-						<thead className='bg-gray-50'>
-							<tr>
-								<th className='px-3 py-3 pr-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500 sm:pl-6'>
-									Nom Fournisseur
-								</th>
-								<th className='px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500'>
-									Contact
-								</th>
-								<th className='px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500'>
-									Incoterm
-								</th>
-								<th className='px-3 py-3 text-left text-xs font-medium uppercase tracking-wide text-gray-500'>
-									Mode Réglement
-								</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{fournisseurs?.map((fournisseur) => (
-								<tr key={fournisseur.id}>
-									<td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6'>
-										<div className='flex items-center'>
-											<div className='h-10 w-10 flex-shrink-0'>
-												<img
-													className='h-10 w-10 rounded-full'
-													src={"/images/empty-contact.png"}
-													alt=''
-												/>
-											</div>
-											<div className='ml-4'>
-												<div className='font-medium text-gray-900'>
-													{fournisseur.design}
-												</div>
-											</div>
-										</div>
-									</td>
-									<td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
-										<div className='text-gray-900'>{fournisseur.tel}</div>
-										<div className='text-gray-500'>{fournisseur.email}</div>
-									</td>
-									<td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
-										<div className='text-gray-900'>{fournisseur.incoterm}</div>
-										<div className='text-gray-500'>{fournisseur.contact}</div>
-									</td>
-									<td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
-										<div className='text-gray-900'>
-											{fournisseur.modeDeReglements}
-										</div>
-									</td>
-									<td>
-										<Mitems
-											archive={() => {
-												//@ts-ignore
-												archive.current(fournisseur.id, fournisseur.design);
-											}}
-											/*    restore={() => {
-                        //@ts-ignore
-                        restore.current(fournisseur.id,fournisseur.design);
-                      }} */
-											del={() => {
-												//@ts-ignore
-												del.current(fournisseur.id, fournisseur.design);
-											}}
-											edit={() => {
-												FormAsEdit(fournisseur);
-											}}
-											obj={fournisseur}
-											update={() => {
-												FormAsUpdate(fournisseur);
-											}}
-										/>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-					<Pagin
-						visible={fournisseurs?.length > 0}
-						load={loadPage}
-						max={fournisseurs?.length}
-					/>
-				</Section>
-			)}
+			<List
+				displayedIncheck={{
+					msg: "les coordonnées bancaires du fournisseur",
+					css: "float-right w-1/2",
+					tab: [
+						{
+							label: "Banque",
+							attr: "nomBanque",
+							type: "attr",
+							required: false,
+							css: "w-full",
+							path: ".",
+							displayed: false,
+							join: ".",
+						},
+						{
+							label: "RIB",
+							attr: "ribBanque",
+							type: "attr",
+							required: false,
+							css: "w-full",
+							path: ".",
+							displayed: false,
+							join: ".",
+						},
+						{
+							label: "SWIFT",
+							attr: "swift",
+							type: "attr",
+							required: false,
+							css: "w-full",
+							path: ".",
+							displayed: false,
+							join: ".",
+						},
+					],
+				}}
+				avatar={true}
+				rectoVerso={true}
+				title='Fournisseur'
+				mal={true}
+				body={[
+					{
+						label: "Nom Fournisseur",
+						attr: "design",
+						type: "attr",
+						required: true,
+						css: "w-1/2 float-left",
+						path: ".",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Mode de Règlement",
+						attr: "modeDeReglements",
+						type: "select",
+						required: true,
+						css: "w-1/2 float-left",
+						path: "payementModes",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Contact",
+						attr: "contact",
+						type: "attr",
+						required: false,
+						css: "w-1/2 float-left",
+						path: ".",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Incoterm",
+						attr: "incoterm",
+						type: "select",
+						required: true,
+						css: "w-1/2 float-left",
+						path: "incoterms",
+						displayed: true,
+						join: ".",
+					},
+					{
+						label: "Téléphone",
+						attr: "tel",
+						type: "attr",
+						required: false,
+						css: "w-1/2 float-left",
+						path: ".",
+						displayed: false,
+						join: ".",
+					},
+					{
+						label: "Devise",
+						attr: "devise",
+						type: "select",
+						required: true,
+						css: "w-1/2 float-left",
+						path: "devises",
+						displayed: false,
+						join: ".",
+					},
+					{
+						label: "Email",
+						attr: "email",
+						type: "attr",
+						required: false,
+						css: "w-1/2 float-left",
+						path: ".",
+						displayed: false,
+						join: ".",
+					},
+					{
+						label: "Adresse",
+						attr: "adresse",
+						type: "attrArea",
+						required: true,
+						css: "w-1/2 float-left",
+						path: ".",
+						displayed: false,
+						join: ".",
+					},
+				]}
+				emptyObject={fournisseur0}
+				path='fournisseurs'
+				detailObjects={ligneDeCommande}
+				init={init}
+			/>
 		</>
 	);
 };
