@@ -79,7 +79,7 @@ const FormCommande = (
 				<CloseCalendar open={openCalendar} setOpen={setOpenCalendar} />
 
 				<div className='float-left w-1/2 relative'>
-					{client0.id != "" ? (
+					{client.id != "" ? (
 						<Field
 							disabled={true}
 							label={<Required msg='Client' />}

@@ -12,9 +12,7 @@ const calculClass = (className: string) => {
 const Xclose = ({ close }: XcloseProp) => {
 	return (
 		<button
-			className={cn(
-				"absolute top-1 right-1 cursor-pointer p-2.5 bg-transparent",
-			)}
+			className={cn("absolute top-1 right-1 cursor-pointer  bg-transparent")}
 			onClick={() => {
 				close();
 			}}>

@@ -12,7 +12,7 @@ type ListCommandesProp = {
 	client: Client;
 	refetchParent: () => void;
 };
-const ListCommandes2 = ({ client, refetchParent }: ListCommandesProp) => {
+const ListCommandes = ({ client, refetchParent }: ListCommandesProp) => {
 	const commandesOpen: OpenCommandeByClientProp = openCommandesByClient(
 		client.id,
 	);
@@ -91,4 +91,4 @@ const ListCommandes2 = ({ client, refetchParent }: ListCommandesProp) => {
 	);
 };
 
-export default ListCommandes2;
+export default ListCommandes;

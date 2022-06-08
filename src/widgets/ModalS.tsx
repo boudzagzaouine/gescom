@@ -7,7 +7,7 @@ type ModalProps = {
 	children: ReactNode;
 	title: string;
 	show: boolean;
-	format:number;
+	format: number;
 	close: () => void;
 };
 const calculClass = ({ className }: any) => {
@@ -17,7 +17,7 @@ const calculClass = ({ className }: any) => {
 	);
 };
 const ModalS = ({ children, title, show, format, close }: ModalProps) => {
-	const modal=true
+	const modal = true;
 	const [showModal, setShowModal] = React.useState(show);
 	const open = () => {
 		//setShowModal(true);
@@ -48,7 +48,7 @@ xl	1280px	@media (min-width: 1280px) { ... }
 									<div className='border-0  shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
 										<Xclose close={close} />
 										{/*header*/}
-										<div className='flex items-start justify-between p-5 border-b border-solid border-slate-200 '>
+										<div className='flex items-start justify-between pl-5 border-b border-solid border-slate-200 '>
 											<h3 className='text-3xl font-semibold'>{title}</h3>
 										</div>
 										{/*body*/}
