@@ -1,4 +1,4 @@
-import ListClientManager from 'features/manager/client/ListClientManager';
+import ListClientManager from 'features/client-beta/ListClientManager';
 import React from 'react';
 
 const ClientManager = () => {

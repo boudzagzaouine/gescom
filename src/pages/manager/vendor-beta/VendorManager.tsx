@@ -1,4 +1,4 @@
-import ListFournisseurManager from "features/Fournisseur/ListFournisseurManager";
+import ListFournisseurManager from "features/Fournisseur-beta/ListFournisseurManager";
 import React from "react";
 
 const VendorManager = () => {

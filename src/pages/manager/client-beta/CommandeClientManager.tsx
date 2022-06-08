@@ -1,4 +1,4 @@
-import ListAllCommandes from "features/manager/client/ListAllCommandes";
+import ListAllCommandes from "features/client-beta/ListAllCommandes";
 import React from "react";
 
 const CommandeClientManager = () => {
