@@ -4,7 +4,7 @@ import { style_icon, style_span } from "tools/constStyle";
 import { CommandeFournisseur, commandeFournisseur0, Fournisseur, fournisseur0 } from "tools/types";
 import List from "widgets/List";
 import { MenuNavTabs } from "widgets/TypeWidgets";
-import ListLigneDeCommande from "./ListLigneDeCommande";
+import ListLigneDeCommande from "../Fournisseur/ListLigneDeCommande";
 
 const Temp = () => {
 	return <h1>en cours ...</h1>;
