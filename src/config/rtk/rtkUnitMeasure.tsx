@@ -14,7 +14,7 @@ export const crudUnitMeasure = createApi({
   endpoints(builder) {
     return {
       /*****************************************************************************/
-      /*********************************UnitMeasure**************************************/
+      /*********************************UnitMeasure*********************************/
       /*****************************************************************************/
       fetchUnitMeasures: builder.query<UnitMeasure[], void>({
         query: () => `/unitMeasures`,
@@ -95,8 +95,8 @@ export type OpenUnitMeasureProp = {
   save: () => void;
   edit: () => void;
 };
-export const openUnitMeasures = (): OpenUnitMeasureProp => {
-  const { data = [], refetch } = useFetchUnitMeasuresQuery();
+export const openUnitMeasures = (page:number): OpenUnitMeasureProp => {
+  const { data = [], refetch } = usePaginationUnitMeasuresQuery(page);
   const [save] = useAddUnitMeasureMutation();
   const [edit] = useEditUnitMeasureMutation();
   //@ts-ignore

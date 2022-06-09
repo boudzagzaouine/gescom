@@ -18,7 +18,7 @@ type FormVilleManagerProp = {
 };
 const FormVilleManager = (
 	{ save, edit, refetch, ville, disable }: FormVilleManagerProp,
-	ref: Ref<void>,
+	ref: Ref<void>
 ) => {
 	const [disabled, setDisabled] = useState(disable);
 	const [ville1, setVille1] = useState(ville);
@@ -45,13 +45,15 @@ const FormVilleManager = (
 			format={5}
 			close={close}>
 			<div className='float-left w-full'>
-				<Bcyan onClick={() => alert(JSON.stringify(ville1))}>test</Bcyan>
 				<Form defaultValues={ville1} onSubmit={onSubmit}>
 					<div className='float-left w-full'>
 						<Field
 							label={<Required msg='Désignation' />}
 							name='design'
 							disabled={disabled}
+							onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+								setVille1({ ...ville1, design: e.target.value });
+							}}
 						/>
 
 						<Field

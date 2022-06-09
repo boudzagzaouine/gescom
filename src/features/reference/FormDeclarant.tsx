@@ -6,8 +6,9 @@ import {
 import classNames from "classnames";
 import { OpenDeclarantProp, openDeclarants } from "config/rtk/rtkDeclarant";
 import { openVilleD } from "config/rtk/rtkVille";
-import React, { forwardRef, Ref, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, forwardRef, Ref, useEffect, useRef, useState } from "react";
 import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from "tools/consts";
+import { getLine } from "tools/Methodes";
 import { Declarant, declarant0, DeclarantJson, Ville } from "tools/types";
 import { Field, Form } from "widgets";
 import Action from "widgets/Action";
@@ -30,7 +31,6 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
   const declarantJson: DeclarantJson = declarantsToOpen.data;
   const declarants: Declarant[] = declarantJson.content;
   const tabVille: Ville[] = openVilleD().data.content;
-  const Ville = tabVille?.map((d) => d.design);
   const refetchDeclarant: () => void = declarantsToOpen.refetch;
   const saveDeclarant = declarantsToOpen.save;
   const editDeclarant = declarantsToOpen.edit;
@@ -166,17 +166,19 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
           >
             {
               //@ts-ignore
-              declarants?.map((declarant: Declarant) => {
+              declarants?.map((dec: dec) => {
                 return (
                   //@ts-ignore
-                  <tr key={declarant.id}>
-                    <Table.td>{declarant.design}</Table.td>
-                    <Table.td>{declarant.ville}</Table.td>
+                  <tr key={dec.id}>
+                    <Table.td>{dec.design}</Table.td>
+                    <Table.td>
+                    <span>{getLine(dec.ville, tabVille)?.design}</span>
+                    </Table.td>
                     <Table.td className="cursor-pointer">
                     <MitemsRef
                         archive={() => {
                           //@ts-ignore
-                          archive.current(declarant.id, declarant.design);
+                          archive.current(dec.id, dec.design);
                         }}
                         /*   restore={() => {
                             //@ts-ignore
@@ -184,11 +186,11 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
                           }} */
                         del={() => {
                           //@ts-ignore
-                          del.current(declarant.id, declarant.design);
+                          del.current(dec.id, dec.design);
                         }}
-                        obj={declarant}
+                        obj={dec}
                         update={() => {
-                          FormAsUpdate(declarant);
+                          FormAsUpdate(dec);
                         }}
                       />
                     </Table.td>
@@ -207,7 +209,7 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
 
       <ModalS
         show={show}
-        title={declarant1.id == "" ? "Nouveau Déclarant" : "Modifier Déclarant"}
+        title={declarant.id == "" ? "Nouveau Déclarant" : "Modifier Déclarant"}
         format={+classNames("5")}
         close={closed}
       >
@@ -226,15 +228,28 @@ const FormDeclarant = ({ declarant }: FormDeclarantProps, ref: Ref<void>) => {
               <Field
                 label={<Required msg="Désignation" />}
                 name="design"
-                disabled={disabled} //required={true}
+                disabled={disabled}
+                onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+                  setDeclarant1({ ...declarant1, design: e.target.value });
+                }}
               />
               <Field
-                label={<Required msg="Ville" />}
-                name="ville"
-                options={["", ...(Ville || [])]}
-                as="select"
-                disabled={disabled} //required={true}
-              />
+							disabled={disabled}
+							label={<Required msg='Ville' />}
+							name='ville'
+							as='select'
+							onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+								setDeclarant1({ ...declarant1, ville: e.target.value });
+							}}>
+							{
+								//@ts-ignore
+								["", ...(tabVille || [])]?.map((c: Ville) => (
+									<option key={c.id} value={c.id}>
+										{c.design}
+									</option>
+								))
+							}
+						</Field>
             </div>
 
             <div className="mt-5 b-ajust-r">

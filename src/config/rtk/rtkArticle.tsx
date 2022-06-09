@@ -95,8 +95,8 @@ export type OpenArticleProp = {
   save: () => void;
   edit: () => void;
 };
-export const openArticles = (): OpenArticleProp => {
-  const { data = [], refetch } = useFetchArticlesQuery();
+export const openArticles = (page:number): OpenArticleProp => {
+  const { data = [], refetch } = usePaginationArticlesQuery(page);
   const [save] = useAddArticleMutation();
   const [edit] = useEditArticleMutation();
   //@ts-ignore
