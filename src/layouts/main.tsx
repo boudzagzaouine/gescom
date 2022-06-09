@@ -50,7 +50,7 @@ const Layout = ({ children }: LayoutProps) => {
 		//if(loading && !session)window.location.href="/"
 		//
 	}, []);
-	const isBeta = true;
+	const isBeta = false;
 	const block = () => {
 		return (
 			<section className='bg-slate-100 float-left w-full'>
