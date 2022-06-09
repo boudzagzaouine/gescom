@@ -15,26 +15,6 @@ import Section from 'widgets/Section';
 import FormFournisseurManager from './FormFournisseurManager';
 
 const ListFournisseurManager = () => {
-	const search = (key: string, obj: Fournisseur[]): Fournisseur[] => {
-		const fournisseurSearch: Fournisseur[] = obj.filter((o: Fournisseur) => {
-			return (
-				o.id.match(key) != null ||
-				o.design.match(key) != null ||
-				o.contact.match(key) != null ||
-				o.tel.match(key) != null ||
-				o.email.match(key) != null ||
-				o.adresse.match(key) != null ||
-				o.modeDeReglements.match(key) != null ||
-				o.incoterm.match(key) != null ||
-				o.devise.match(key) != null ||
-				o.nomBanque.match(key) != null ||
-				o.ribBanque.match(key) != null ||
-				o.swift.match(key) != null ||
-				o.image.match(key) != null
-			);
-		});
-		return fournisseurSearch;
-	};
 	const [form, setForm] = useState(false);
 	const [fournisseur0, setFournisseur0] = useState(f0);
 	const [request0, setRequest0] = useState(REQUEST_SAVE);

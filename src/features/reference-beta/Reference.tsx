@@ -6,7 +6,6 @@ import {
     declarant0,
     devise0,
     document0,
-    i0,
     incoterm0,
     payementMode0,
     pays0,
@@ -15,6 +14,7 @@ import {
     transporteur0,
     type0,
     unitMeasure0,
+    ville0,
 } from 'tools/types';
 import List from 'widgets/List';
 
@@ -576,7 +576,7 @@ const Reference = ({ type }: ReferenceProps) => {
 							join: ".",
 						},
 					]}
-					emptyObject={i0}
+					emptyObject={ville0}
 					path='villes'
 				/>
 			);

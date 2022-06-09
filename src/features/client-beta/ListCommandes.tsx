@@ -1,10 +1,10 @@
 import { BriefcaseIcon } from '@heroicons/react/solid';
+import ListArticleCommandes from 'features/manager/client/ListArticleCommandes';
 import React, { useState } from 'react';
 import { style_icon, style_span } from 'tools/constStyle';
 import { Client, Commande, commande0 } from 'tools/types';
 import List from 'widgets/List';
 import { MenuNavTabs } from 'widgets/TypeWidgets';
-import ListArticleCommandes from './ListArticleCommandes';
 
 type CommandesProp = {
 	client: Client;
@@ -19,22 +19,22 @@ const ListCommandes = ({ client, refetchParent }: CommandesProp) => {
 	};
 	const commandes: MenuNavTabs[] = [
 		{
-		   id: 1,
-		  name: (
-		  <>
-			<BriefcaseIcon className={style_icon} aria-hidden="true" />
-			<span className={style_span}>Articles de la commande</span>
-		  </>
-		  ),
-		  featured: (
-			<ListArticleCommandes
-				idClient={client?.id}
-				idCommande={commande?.id}
-				refetchParent={refetch}
-			/>
-		  ),
-		 },
-	  ];
+			id: 1,
+			name: (
+				<>
+					<BriefcaseIcon className={style_icon} aria-hidden='true' />
+					<span className={style_span}>Articles de la commande</span>
+				</>
+			),
+			featured: (
+				<ListArticleCommandes
+					idClient={client?.id}
+					idCommande={commande?.id}
+					refetchParent={refetch}
+				/>
+			),
+		},
+	];
 	return (
 		<>
 			<List
@@ -68,7 +68,7 @@ const ListCommandes = ({ client, refetchParent }: CommandesProp) => {
 						displayed: false,
 						join: ".",
 					},
-          			{
+					{
 						label: "N° BC",
 						attr: "id",
 						type: "attr",
@@ -78,7 +78,7 @@ const ListCommandes = ({ client, refetchParent }: CommandesProp) => {
 						displayed: true,
 						join: ".",
 					},
-          			{
+					{
 						label: "Saison",
 						attr: "season",
 						type: "attr",
@@ -88,7 +88,7 @@ const ListCommandes = ({ client, refetchParent }: CommandesProp) => {
 						displayed: true,
 						join: ".",
 					},
-         			{
+					{
 						label: "Date Commande",
 						attr: "date33",
 						type: "date",

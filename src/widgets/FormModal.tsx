@@ -1,8 +1,8 @@
 import classNames from 'classnames';
+import { useOpenIdsObjects } from 'config/rtk/rtkGen';
 import dateFormat from 'dateformat';
 import React, { ChangeEvent, forwardRef, ReactNode, Ref, useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { getList } from 'tools/Methodes';
 import { Attribut, DisplayedIncheckProps, IdsObject, IdsObjectJson, tabProp } from 'tools/types';
 import Calendar from 'widgets/Calendar';
 
@@ -13,7 +13,7 @@ import BsavEndNew from './BsavEndNew';
 import CloseCalendar from './CloseCalendar';
 import { Field } from './Field';
 import { Form } from './Form';
-import ModalS from './ModalS';
+import ModalGeneric from './ModalGeneric';
 import NavTabs from './NavTabs';
 import Required from './Required';
 import ShowCheckedsField from './ShowCheckedsField';
@@ -44,6 +44,49 @@ type ListProp<E extends IdsObject, J extends IdsObjectJson> = {
   //const obj = useSelector(state=>state.obj0);
   return obj0?.tab||[{id:"",design:"fofo"}];
 }; */
+
+type GenericSelectProp<E extends IdsObject, J extends IdsObjectJson> = {
+	disabled: boolean;
+	b: Attribut;
+	object: E;
+	setObject: (o: E) => void;
+};
+const GenericSelect = <E extends IdsObject, J extends IdsObjectJson, Ref>({
+	disabled,
+	b,
+	object,
+	setObject,
+}: GenericSelectProp<E, J>) => {
+	const openSel = useOpenIdsObjects(b.path);
+	//@ts-ignore
+	const list: E[] = openSel.tab;
+	return (
+		<Field
+			disabled={disabled}
+			label={b.required ? <Required msg={b.label} /> : b.label}
+			name={b.attr}
+			as='select'
+			onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+				let o: E = { ...object };
+				let key: string = b.attr;
+				//@ts-ignore
+				o[key] = e.target.value;
+				setObject(o);
+			}}>
+			{
+				//@ts-ignore
+				["", ...(list || [])]?.map(
+					//@ts-ignore
+					(c: E) => (
+						<option key={c.id} value={c.id}>
+							{c.design}
+						</option>
+					),
+				)
+			}
+		</Field>
+	);
+};
 
 const FormModal = <E extends IdsObject, J extends IdsObjectJson, Ref>(
 	{
@@ -121,30 +164,12 @@ const FormModal = <E extends IdsObject, J extends IdsObjectJson, Ref>(
 					break;
 				case "select":
 					return (
-						<Field
+						<GenericSelect
+							b={b}
 							disabled={disabled}
-							label={b.required ? <Required msg={b.label} /> : b.label}
-							name={b.attr}
-							as='select'
-							onChange={(e: ChangeEvent<HTMLSelectElement>) => {
-								let o: E = { ...object };
-								let key: string = b.attr;
-								//@ts-ignore
-								o[key] = e.target.value;
-								setObject(o);
-							}}>
-							{
-								//@ts-ignore
-								["", ...(getList(b.path, arrayFromSelect) || [])]?.map(
-									//@ts-ignore
-									(c: E) => (
-										<option key={c.id} value={c.id}>
-											{c.design}
-										</option>
-									),
-								)
-							}
-						</Field>
+							object={object}
+							setObject={setObject}
+						/>
 					);
 					break;
 				case "date":
@@ -184,7 +209,7 @@ const FormModal = <E extends IdsObject, J extends IdsObjectJson, Ref>(
 			}
 		};
 		return (
-			<ModalS
+			<ModalGeneric
 				show={show}
 				title={
 					object.id == ""
@@ -261,8 +286,10 @@ const FormModal = <E extends IdsObject, J extends IdsObjectJson, Ref>(
 						/>
 					</div>
 				)}
-				{object.id != "" && show && <NavTabs tab={detailObjects} />}
-			</ModalS>
+				{object.id != "" && show && detailObjects.length > 0 && (
+					<NavTabs tab={detailObjects} />
+				)}
+			</ModalGeneric>
 		);
 	} catch (error) {
 		return <></>;

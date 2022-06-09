@@ -1,4 +1,4 @@
-import { OpenIdsObjectProp, useOpenIdsObjects } from 'config/rtk/rtkGen';
+import { GetRtk } from 'config/rtk/GetRtk';
 import React, { ChangeEvent, FC, ReactNode, useRef, useState } from 'react';
 import { Attribut, DisplayedIncheckProps, IdsObject, IdsObjectJson, tabProp } from 'tools/types';
 import Bcyan from 'widgets/Bcyan';
@@ -34,7 +34,7 @@ const List = <E extends IdsObject, J extends IdsObjectJson>({
 	detailObjects,
 	init,
 }: ListProp<E, J>) => {
-	const open: OpenIdsObjectProp<E, J> = useOpenIdsObjects(path);
+	const open = GetRtk(path); // : OpenIdsObjectProp<E, J> = openIdsObjects(path);
 	//@ts-ignore
 	const objJson: J = open.data;
 	//@ts-ignore
@@ -49,29 +49,29 @@ const List = <E extends IdsObject, J extends IdsObjectJson>({
 	const [show, setShow] = useState(false);
 	const RefForm = useRef(null);
 	const load = (e: E) => {
-		//	init(e, refetch);
+		init(e, refetch);
 		//@ts-ignore
 		RefForm.current(e);
 		setObject(e);
 		setShow(true);
 	};
 	const closed = () => {
-		//	init(emptyObject, refetch);
+		init(emptyObject, refetch);
 		setShow(false);
 	};
 
 	let arrayFromSelect: tabProp<E>[] = [];
-	/* body.map((b) => {
+	body.map((b) => {
 		if (b.type == "select") {
-			const openSel = useOpenIdsObjects(b.path);
+			const openSel = GetRtk(b.path);
 			//@ts-ignore
-			//	const objSelJson: J = openSel.data;
+			const objSelJson: J = openSel.data;
 			//@ts-ignore
-			const tab: E[] = openSel?.tab;
+			const tab: E[] = objSelJson.content;
 			//@ts-ignore
 			arrayFromSelect.push({ path: b.path, tab: tab });
 		}
-	}); */
+	});
 	return (
 		<Section>
 			{(!show || !rectoVerso) && (

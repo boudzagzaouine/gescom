@@ -1,7 +1,10 @@
 import { OpenClientProp, openPaginationClients } from 'config/rtk/RtkClient';
+import { openIncoterms } from 'config/rtk/rtkIncoterm';
+import { openPayementModes } from 'config/rtk/rtkPayementMode';
 import React, { useEffect, useRef, useState } from 'react';
 import { ARCHIVE, DEL, REQUEST_EDIT, REQUEST_SAVE, RESTORE } from 'tools/consts';
-import { c0, Client } from 'tools/types';
+import { getLine } from 'tools/Methodes';
+import { c0, Client, Incoterm, PayementMode } from 'tools/types';
 import { Button } from 'widgets';
 import Action from 'widgets/Action';
 import Bcyan from 'widgets/Bcyan';
@@ -25,6 +28,8 @@ const ListClientManager1 = () => {
 	//openPaginationClients =(page:number):OpenClientProp
 	const openClients: OpenClientProp = openPaginationClients(page);
 	const clients: Client[] = openClients.data.content;
+	const incoterms: Incoterm[] = openIncoterms().data.content;
+	const paymentChoices: PayementMode[] = openPayementModes().data.content;
 	const refetch = openClients.refetch;
 	const [disabled, setDisabled] = useState(true);
 	const del = useRef(null);
@@ -143,8 +148,12 @@ const ListClientManager1 = () => {
 											<li>{client.email}</li>
 										</ul>
 									</Table.td>
-									<Table.td>{client.incoterm}</Table.td>
-									<Table.td>{client.paymentChoice}</Table.td>
+									<Table.td>
+										{getLine(client.incoterm, incoterms)?.design}
+									</Table.td>
+									<Table.td>
+										{getLine(client.paymentChoice, paymentChoices)?.design}
+									</Table.td>
 									<Table.td>
 										<Mitems
 											archive={() => {

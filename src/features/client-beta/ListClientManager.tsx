@@ -1,14 +1,14 @@
 import { BriefcaseIcon, ClipboardListIcon, TagIcon, TruckIcon } from '@heroicons/react/solid';
+import ListAdressLivraisons from 'features/manager/client/ListAdressLivraisons';
+import SoldesCommandes from 'features/manager/client/SoldesCommandes';
 import React, { useState } from 'react';
 import { style_icon, style_span } from 'tools/constStyle';
 import { Client, client0 } from 'tools/types';
 import List from 'widgets/List';
 import { MenuNavTabs } from 'widgets/TypeWidgets';
 
-import ListAdressLivraisons from './ListAdressLivraisons';
 import ListArticleClients from './ListArticleClients';
 import ListCommandes from './ListCommandes';
-import SoldesCommandes from './SoldesCommandes';
 
 const Temp = () => {
 	return <h1>en cours ...</h1>;

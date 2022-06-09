@@ -70,7 +70,7 @@ export const crudGeneric = createApi({
 	},
 });
 export const { useFetchQuery, useAddMutation, useEditMutation } = crudGeneric;
-
+/*******************************************/
 export type OpenIdsObjectProp<E extends IdsObject, J extends IdsObjectJson> = {
 	data: J;
 	tab: E[];
@@ -111,58 +111,69 @@ export type OpenIdsObjectByIdClientProp<E extends IdsObject> = {
 	startedTimeStamp: any;
 };
 
-export const openIdsObjects = <E extends IdsObject, J extends IdsObjectJson>(
+//const openIdsObjectsFw = {};
+
+export const useOpenIdsObjects = <E extends IdsObject, J extends IdsObjectJson>(
 	path: string,
 ): OpenIdsObjectProp<E, J> => {
-	try {
-		const {
-			data = [],
-			refetch,
-			isSuccess,
-			isFetching,
-			isError,
-			isLoading,
-			isUninitialized,
-			status,
-			currentData,
-			endpointName,
-			error,
-			fulfilledTimeStamp,
-			originalArgs,
-			requestId,
-			startedTimeStamp,
-		} = useFetchQuery(path);
-		//@ts-ignore
-		const tab: E[] = data.content;
-		const [save] = useAddMutation();
-		const [edit] = useEditMutation();
-		//@ts-ignore
-		const out: OpenIdsObjectProp = {
-			tab,
-			data,
-			refetch,
-			save,
-			edit,
-			isSuccess,
-			isFetching,
-			isError,
-			isLoading,
-			isUninitialized,
-			status,
-			currentData,
-			endpointName,
-			error,
-			fulfilledTimeStamp,
-			originalArgs,
-			requestId,
-			startedTimeStamp,
-		};
-		return out;
-	} catch (Error) {
+	/*
+	// @ts-ignore
+	if (openIdsObjectsFw[path]) {
+		// @ts-ignore
+		return openIdsObjectsFw[path];
+	}
+*/
+	//try {
+	const {
+		data = [],
+		refetch,
+		isSuccess,
+		isFetching,
+		isError,
+		isLoading,
+		isUninitialized,
+		status,
+		currentData,
+		endpointName,
+		error,
+		fulfilledTimeStamp,
+		originalArgs,
+		requestId,
+		startedTimeStamp,
+	} = useFetchQuery(path);
+	//@ts-ignore
+	const tab: E[] = data.content;
+	const [save] = useAddMutation();
+	const [edit] = useEditMutation();
+	//@ts-ignore
+	const out: OpenIdsObjectProp = {
+		tab,
+		data,
+		refetch,
+		save,
+		edit,
+		isSuccess,
+		isFetching,
+		isError,
+		isLoading,
+		isUninitialized,
+		status,
+		currentData,
+		endpointName,
+		error,
+		fulfilledTimeStamp,
+		originalArgs,
+		requestId,
+		startedTimeStamp,
+	};
+	// @ts-ignore
+	//openIdsObjectsFw[path] = out;
+	return out;
+	/* 	} catch (Error) {
 		console.log("Eror rtk " + Error);
 		//@ts-ignore
 		return null;
-	}
+	} */
 };
 export const openIdsObject = <E extends IdsObject, J extends IdsObjectJson>(
 	path: string,
