@@ -95,8 +95,8 @@ export type OpenRawMaterialProp = {
   save: () => void;
   edit: () => void;
 };
-export const openRawMaterials = (): OpenRawMaterialProp => {
-  const { data = [], refetch } = useFetchRawMaterialsQuery();
+export const openRawMaterials = (page:number): OpenRawMaterialProp => {
+  const { data = [], refetch } = usePaginationRawMaterialsQuery(page);
   const [save] = useAddRawMaterialMutation();
   const [edit] = useEditRawMaterialMutation();
   //@ts-ignore
